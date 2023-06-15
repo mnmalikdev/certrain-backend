@@ -6,11 +6,19 @@ import { AppService } from './app.service';
 import { SitesModule } from './sites/sites.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { AuthModule } from './0auth2.0/auth.module';
+import { RolesModule } from './roles/roles.module';
+import { MailModule } from './mails/mailer.module';
+import { ContractorModule } from './contractors/contractors.module';
+import { EmployeesModule } from './employees/employees.module';
 @Module({
   imports: [
     SitesModule,
     DepartmentsModule,
     AuthModule,
+    RolesModule,
+    MailModule,
+    ContractorModule,
+    EmployeesModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',

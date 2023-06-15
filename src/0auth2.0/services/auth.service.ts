@@ -16,6 +16,7 @@ import { LogInDTO } from '../DTOs/login.dto';
 import { SignUpDTO } from '../DTOs/signup.dto';
 import { User } from '../entites/user.entity';
 import { Role } from '../enums';
+import { CustomMailService } from 'src/mails/mailer.service';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +24,7 @@ export class AuthService {
     @InjectRepository(User) public userRepository: Repository<User>,
     @Inject(forwardRef(() => JwtService))
     private jwtService: JwtService,
+    private customMailService: CustomMailService,
   ) {}
 
   // **************************** jwt based auth**********************************************************
@@ -102,9 +104,40 @@ export class AuthService {
     newUser.password = hashedPassword;
 
     // todo: MAKE AN EMAIL SERVICE .
-    // await this.mailService.sendUserConfirmation(newUser.userId, newUser.email);
+    await this.customMailService.sendUserConfirmation(
+      newUser.userId,
+      newUser.email,
+      newUser.userName,
+    );
 
     return await this.userRepository.save(newUser);
+  }
+
+  async confirmUserAccount(token: string) {
+    console.log('YE LO TOKEN', token);
+    const result = await this.jwtService.verify(token, {
+      secret: process.env.VERIFICATION_SECRET,
+    });
+
+    console.log('token==>', result);
+
+    if (!result) {
+      throw new ForbiddenException('Token Expired');
+    }
+    const userId = result.sub;
+    const user = await this.userRepository.findOne({
+      where: {
+        userId: userId,
+      },
+    });
+    if (!user) {
+      throw new ForbiddenException('Access Denied !');
+    }
+
+    // Save the updated user object
+
+    user.isVerified = true;
+    await this.userRepository.save(user);
   }
 
   async logIn(loginDTO: LogInDTO) {

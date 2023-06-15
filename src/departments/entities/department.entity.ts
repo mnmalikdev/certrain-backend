@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 import { Site } from 'src/sites/entities/site.entity';
+import { Role } from 'src/roles/entities/Role.entity';
 
 @Entity()
 export class Department {
@@ -36,4 +37,7 @@ export class Department {
     onDelete: 'CASCADE',
   })
   sites: Site[];
+
+  @OneToMany(() => Role, (role) => role.site)
+  roles: Role;
 }

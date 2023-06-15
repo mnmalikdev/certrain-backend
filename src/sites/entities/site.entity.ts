@@ -1,9 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { Role } from 'src/roles/entities/Role.entity';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Site {
+  @ApiProperty({
+    description: 'unique id of site',
+  })
+  @PrimaryGeneratedColumn()
+  id: string;
+
   @ApiProperty({
     description: 'unique id of site',
   })
@@ -26,4 +41,13 @@ export class Site {
 
   @OneToMany(() => Department, (department) => department.sites)
   departmentOfSite: Department;
+
+  @OneToMany(() => Contractor, (contractor) => contractor.site)
+  contractors: Department;
+
+  @OneToMany(() => Role, (role) => role.site)
+  roles: Role;
+
+  @OneToMany(() => Employee, (employee) => employee.worksAtSite)
+  employees: Employee;
 }
