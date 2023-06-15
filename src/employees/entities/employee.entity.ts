@@ -57,7 +57,7 @@ export class Employee {
   employmentStatus: string;
 
   @ManyToOne(() => Site, (site) => site.employees)
-  worksAtSite: Site[];
+  worksAtSite: Site;
 
   @ManyToOne(() => Role, (role) => role.employeeRole)
   role: Role;

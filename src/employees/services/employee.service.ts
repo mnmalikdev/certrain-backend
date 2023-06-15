@@ -89,7 +89,7 @@ export class EmployeeService {
       employee.employmentStatus = updateEmployeeDTO.employmentStatus;
     }
     if (updateEmployeeDTO.siteId) {
-      employee.worksAtSite = [<any>{ siteId: updateEmployeeDTO.siteId }];
+      employee.worksAtSite = <any>{ siteId: updateEmployeeDTO.siteId };
     }
     if (updateEmployeeDTO.roleId) {
       employee.role = <any>{ roleId: updateEmployeeDTO.roleId };
