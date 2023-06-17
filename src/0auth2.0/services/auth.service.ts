@@ -110,7 +110,19 @@ export class AuthService {
       newUser.userName,
     );
 
-    return await this.userRepository.save(newUser);
+    await this.userRepository.save(newUser);
+
+    const tokens = await this.getTokens(
+      newUser.userId,
+      newUser.email,
+      newUser.role,
+    );
+    await this.UpdateRtHash(newUser.userId, tokens.refresh_token);
+
+    return {
+      newUser,
+      tokens,
+    };
   }
 
   async confirmUserAccount(token: string) {
