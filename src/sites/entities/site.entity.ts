@@ -16,12 +16,6 @@ export class Site {
   @ApiProperty({
     description: 'unique id of site',
   })
-  @PrimaryGeneratedColumn()
-  id: string;
-
-  @ApiProperty({
-    description: 'unique id of site',
-  })
   @PrimaryColumn()
   siteId: string;
 
@@ -39,11 +33,14 @@ export class Site {
   @Column()
   address: string;
 
-  @OneToMany(() => Department, (department) => department.sites)
-  departmentOfSite: Department;
+  @OneToMany(() => Department, (department) => department.site, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  departmentOfSite: Department[];
 
   @OneToMany(() => Contractor, (contractor) => contractor.site)
-  contractors: Department;
+  contractors: Contractor;
 
   @OneToMany(() => Role, (role) => role.site)
   roles: Role;

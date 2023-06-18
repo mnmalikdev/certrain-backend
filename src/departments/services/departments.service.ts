@@ -20,23 +20,12 @@ export class DepartmentService {
   async createDepartment(
     createDepartmentDTO: CreateDepartmentDTO,
   ): Promise<Department> {
-    const department = await this.departmentRepository.findOne({
-      where: {
-        name: createDepartmentDTO.name,
-      },
-    });
-    if (department) {
-      throw new ForbiddenException(
-        'A department with this name already exists',
-      );
-    }
-
     const newDepartment = new Department();
     newDepartment.departmentId = uuidv4();
     newDepartment.name = createDepartmentDTO.name;
     newDepartment.phoneNumber = createDepartmentDTO.phoneNumber;
     newDepartment.extensionNumber = createDepartmentDTO.extensionNumber;
-    newDepartment.sites = <any>{ siteId: createDepartmentDTO?.siteId };
+    newDepartment.site = <any>{ site: createDepartmentDTO?.siteId };
 
     await this.departmentRepository.save(newDepartment);
     return newDepartment;
