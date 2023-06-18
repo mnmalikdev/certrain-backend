@@ -40,13 +40,15 @@ export class ContractorsController {
     }
   }
 
-  @Get(':id')
+  @Get('fetchContractor/:contractorId')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get a contractor by ID',
     type: Contractor,
   })
-  async getContractorById(@Param('id') id: string): Promise<Contractor> {
+  async getContractorById(
+    @Param('contractorId') id: string,
+  ): Promise<Contractor> {
     try {
       const contractor = await this.contractorService.getContractorById(id);
       return contractor;
@@ -56,7 +58,7 @@ export class ContractorsController {
   }
 
   // Get all contractors
-  @Get()
+  @Get('/fetchAllContractors')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get all contractors',
@@ -67,14 +69,14 @@ export class ContractorsController {
     return this.contractorService.getAllContractors();
   }
 
-  @Put(':id')
+  @Patch('updateContractor/:contractorId')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Update a contractor',
     type: Contractor,
   })
   async updateContractor(
-    @Param('id') id: string,
+    @Param('contractorId') id: string,
     @Body() updateContractorDTO: UpdateContractorDTO,
   ): Promise<Contractor> {
     try {
@@ -88,12 +90,12 @@ export class ContractorsController {
     }
   }
 
-  @Delete(':id')
+  @Delete('deleteContractor/:contractorId')
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'Delete a contractor',
   })
-  async deleteContractor(@Param('id') id: string): Promise<void> {
+  async deleteContractor(@Param('contractorId') id: string): Promise<void> {
     try {
       await this.contractorService.deleteContractor(id);
     } catch (error) {

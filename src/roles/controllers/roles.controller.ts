@@ -13,8 +13,8 @@ import { RoleService } from '../services/role.service';
 import { Role } from '../entities/Role.entity';
 import { CreateRoleDTO } from '../DTOs/createRole.dto';
 
-@ApiTags('Roles')
-@Controller('Roles')
+@ApiTags('roles')
+@Controller('roles')
 export class RolesController {
   constructor(private readonly roleService: RoleService) {}
 
@@ -33,7 +33,7 @@ export class RolesController {
     }
   }
 
-  @Get(':roleId')
+  @Get('fetchRole/:roleId')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Retrieves a role by ID',
@@ -48,7 +48,7 @@ export class RolesController {
     }
   }
 
-  @Get()
+  @Get('fetchAllRoles')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Retrieves all roles',
@@ -63,7 +63,7 @@ export class RolesController {
     }
   }
 
-  @Delete(':roleId')
+  @Delete('deleteRole/:roleId')
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'Deletes a role',
