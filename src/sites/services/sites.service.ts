@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { Site } from '../entities/site.entity';
 import { CreateSiteDTO } from '../DTOs/createSite.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdateSiteDTO } from '../DTOs/updateSite.dto';
 
 @Injectable()
 export class SiteService {
@@ -62,6 +63,27 @@ export class SiteService {
     if (!site) {
       throw new NotFoundException('Site not found');
     }
-    await this.siteRepository.remove(site);
+    await this.siteRepository.delete({
+      siteId: siteId,
+    });
+  }
+
+  async updateSite(
+    siteId: string,
+    updateSiteDTO: UpdateSiteDTO,
+  ): Promise<Site> {
+    const site = await this.findSiteById(siteId);
+
+    if (updateSiteDTO.name) {
+      site.name = updateSiteDTO.name;
+    }
+
+    if (updateSiteDTO.address) {
+      site.address = updateSiteDTO.address;
+    }
+
+    await this.siteRepository.save(site);
+
+    return site;
   }
 }

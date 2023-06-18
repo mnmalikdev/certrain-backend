@@ -6,12 +6,14 @@ import {
   Body,
   Param,
   HttpStatus,
+  Patch,
   HttpException,
 } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { RoleService } from '../services/role.service';
 import { Role } from '../entities/Role.entity';
 import { CreateRoleDTO } from '../DTOs/createRole.dto';
+import { UpdateRoleDTO } from '../DTOs/updateRole.dto';
 
 @ApiTags('roles')
 @Controller('roles')
@@ -73,6 +75,24 @@ export class RolesController {
       await this.roleService.deleteRole(roleId);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @Patch('updateRole/:roleId')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'update existing role',
+    type: Role,
+  })
+  async updateRole(
+    @Param('roleId') roleId: string,
+    @Body() updateRoleDto: UpdateRoleDTO,
+  ): Promise<Role> {
+    try {
+      const newRole = await this.roleService.updateRole(roleId, updateRoleDto);
+      return newRole;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.FORBIDDEN);
     }
   }
 }

@@ -5,6 +5,7 @@ import {
   Delete,
   Body,
   Param,
+  Patch,
   HttpStatus,
   HttpException,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { SiteService } from '../services/sites.service';
 import { CreateSiteDTO } from '../DTOs/createSite.dto';
 import { Site } from '../entities/site.entity';
+import { UpdateSiteDTO } from '../DTOs/updateSite.dto';
 
 @ApiTags('Sites')
 @Controller('sites')
@@ -70,5 +72,23 @@ export class SiteController {
   async findAllSites(): Promise<Site[]> {
     const sites = await this.siteService.findAllSites();
     return sites;
+  }
+
+  @Patch('updateSite/:siteId')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'updates an existing siteId',
+    type: Site,
+  })
+  async updateSite(
+    @Param('siteId') siteId: string,
+    @Body() updateSiteDTO: UpdateSiteDTO,
+  ): Promise<Site> {
+    try {
+      const newSite = await this.siteService.updateSite(siteId, updateSiteDTO);
+      return newSite;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.FORBIDDEN);
+    }
   }
 }

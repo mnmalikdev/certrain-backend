@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { Department } from '../entities/department.entity';
 import { CreateDepartmentDTO } from '../DTOs/createDepartment.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdateDepartmentDTO } from '../DTOs/updateDepartment.dto';
 
 @Injectable()
 export class DepartmentService {
@@ -62,7 +63,7 @@ export class DepartmentService {
 
   async updateDepartment(
     departmentId: string,
-    updateDepartmentDTO: Partial<CreateDepartmentDTO>,
+    updateDepartmentDTO: Partial<UpdateDepartmentDTO>,
   ): Promise<Department> {
     const department = await this.findDepartmentById(departmentId);
     Object.assign(department, updateDepartmentDTO);

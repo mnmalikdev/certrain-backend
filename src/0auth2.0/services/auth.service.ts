@@ -33,6 +33,11 @@ export class AuthService {
     return bcrypt.hash(data, 10);
   }
 
+  async parseUser(user: User) {
+    const { password, hashedRt, ...parsedUser } = user;
+    return parsedUser;
+  }
+
   async getTokens(userId: string, email: string, role: Role) {
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(
@@ -119,8 +124,10 @@ export class AuthService {
     );
     await this.UpdateRtHash(newUser.userId, tokens.refresh_token);
 
+    const parsedUser = await this.parseUser(newUser);
+
     return {
-      newUser,
+      parsedUser,
       tokens,
     };
   }
@@ -176,10 +183,10 @@ export class AuthService {
 
     const tokens = await this.getTokens(user.userId, user.email, user.role);
     await this.UpdateRtHash(user.userId, tokens.refresh_token);
-
+    const parsedUser = await this.parseUser(user);
     return {
       tokens,
-      user,
+      parsedUser,
     };
   }
 
@@ -231,9 +238,10 @@ export class AuthService {
 
     const newTokens = await this.getTokens(user.userId, user.email, user.role);
 
+    const parsedUser = await this.parseUser(user);
     return {
       newTokens,
-      userDetails: user,
+      parsedUser,
     };
   }
 

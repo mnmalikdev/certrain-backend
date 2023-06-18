@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { Role } from '../entities/role.entity';
 import { CreateRoleDTO } from '../DTOs/createRole.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdateRoleDTO } from '../DTOs/updateRole.dto';
 
 @Injectable()
 export class RoleService {
@@ -67,5 +68,30 @@ export class RoleService {
       throw new NotFoundException('Role not found');
     }
     await this.roleRepository.remove(role);
+  }
+
+  async updateRole(
+    roleId: string,
+    updateRoleDTO: UpdateRoleDTO,
+  ): Promise<Role> {
+    const role = await this.findRoleById(roleId);
+    if (updateRoleDTO.name) {
+      role.name = updateRoleDTO.name;
+    }
+    if (updateRoleDTO.description) {
+      role.description = updateRoleDTO.description;
+    }
+    if (updateRoleDTO.responsibilities) {
+      role.responsibilities = updateRoleDTO.responsibilities;
+    }
+    if (updateRoleDTO.siteId) {
+      role.site = <any>{ siteId: updateRoleDTO.siteId };
+    }
+    if (updateRoleDTO.departmentId) {
+      role.department = <any>{ departmentId: updateRoleDTO.departmentId };
+    }
+
+    await this.roleRepository.save(role);
+    return role;
   }
 }
