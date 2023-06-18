@@ -17,6 +17,8 @@ import { SignUpDTO } from '../DTOs/signup.dto';
 import { User } from '../entites/user.entity';
 import { Role } from '../enums';
 import { CustomMailService } from 'src/mails/mailer.service';
+import { SendPasswordResetLinkDTO } from '../DTOs/sendPasswordResetLink.dto';
+import { ResetPasswordDTO } from '../DTOs/resetPassword.dto';
 
 @Injectable()
 export class AuthService {
@@ -260,5 +262,51 @@ export class AuthService {
         { hashedRt: null },
       );
     }
+  }
+
+  async sendResetPasswordLinkToUserEmail(
+    sendLinkDto: SendPasswordResetLinkDTO,
+  ) {
+    const isUserRegistered = await this.userRepository.findOne({
+      where: {
+        email: sendLinkDto?.email,
+      },
+    });
+    if (!isUserRegistered) {
+      throw new ForbiddenException(
+        'No such user with this email exists in our system ! ',
+      );
+    }
+    await this.customMailService.sendPasswordResetLink(
+      sendLinkDto.email,
+      isUserRegistered?.userName,
+    );
+    return {
+      status: 'sucess',
+      message: "link sent to user's email",
+    };
+  }
+
+  async resetUserPassword(token: string, newPassword: string) {
+    const result = await this.jwtService.verify(token, {
+      secret: process.env.VERIFICATION_SECRET,
+    });
+
+    const userEmail = result?.email;
+    const user = await this.userRepository.findOne({
+      where: {
+        email: userEmail,
+      },
+    });
+    if (!user) {
+      throw new ForbiddenException('No such user exists ! ');
+    }
+    const hashedPassword = await this.hashData(newPassword);
+    user.password = hashedPassword;
+    await this.userRepository.save(user);
+    return {
+      status: 'success ',
+      message: 'Password updated.',
+    };
   }
 }

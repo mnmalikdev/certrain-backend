@@ -22,6 +22,8 @@ import { Request } from 'express';
 import { LogInDTO } from '../DTOs/login.dto';
 import { SignUpDTO } from '../DTOs/signup.dto';
 import { AuthService } from '../services/auth.service';
+import { SendPasswordResetLinkDTO } from '../DTOs/sendPasswordResetLink.dto';
+import { ResetPasswordDTO } from '../DTOs/resetPassword.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -79,6 +81,19 @@ export class AuthController {
   async verifyUser(@Query('token') token: string) {
     await this.authService.verifyNewCreatedUser(token);
     return { status: 'Success', message: 'User verified ' };
+  }
+
+  @Post('sendResetPasswordLink')
+  async sendResetPasswordLink(@Body() sendLinkDto: SendPasswordResetLinkDTO) {
+    return this.authService.sendResetPasswordLinkToUserEmail(sendLinkDto);
+  }
+
+  @Post('resetPassword')
+  async resetPassword(@Body() newPasswordDto: ResetPasswordDTO) {
+    return this.authService.resetUserPassword(
+      newPasswordDto.token,
+      newPasswordDto.password,
+    );
   }
 
   @ApiBearerAuth()

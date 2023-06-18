@@ -37,4 +37,28 @@ export class CustomMailService {
       },
     });
   }
+
+  async sendPasswordResetLink(email: string, userName: string) {
+    const token = await this.jwtService.signAsync(
+      {
+        email,
+      },
+      {
+        secret: process.env.VERIFICATION_SECRET,
+        expiresIn: '7d',
+      },
+    );
+    const url = `${process.env.BASE_URL_FRONTEND}auth/resetPassword?token=${token}`;
+
+    await this.mailerService.sendMail({
+      to: email,
+      // from: '"Support Team" <support@example.com>', // override default from
+      subject: 'Reset Your Certrain Password',
+      template: 'resetPasswordLink', // `.hbs` extension is appended automatically
+      context: {
+        name: userName,
+        url,
+      },
+    });
+  }
 }
