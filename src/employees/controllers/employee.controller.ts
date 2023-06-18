@@ -45,7 +45,7 @@ export class EmployeeController {
   }
 
   @Delete('deleteEmployee/:employeeId')
-  async remove(@Param('id') id: string): Promise<void> {
+  async remove(@Param('employeeId') id: string): Promise<void> {
     return this.employeeService.deleteEmployee(id);
   }
 }
