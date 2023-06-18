@@ -36,7 +36,7 @@ export class DepartmentService {
       where: {
         departmentId,
       },
-      relations: ['sites'],
+      relations: ['site'],
     });
     if (!department) {
       throw new NotFoundException('Department not found');
