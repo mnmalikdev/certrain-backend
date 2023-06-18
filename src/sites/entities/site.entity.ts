@@ -33,10 +33,7 @@ export class Site {
   @Column()
   address: string;
 
-  @OneToMany(() => Department, (department) => department.site, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => Department, (department) => department.site)
   departmentOfSite: Department[];
 
   @OneToMany(() => Contractor, (contractor) => contractor.site)

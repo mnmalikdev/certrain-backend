@@ -58,6 +58,9 @@ export class DepartmentService {
   ): Promise<Department> {
     const department = await this.findDepartmentById(departmentId);
     Object.assign(department, updateDepartmentDTO);
+    if (updateDepartmentDTO?.siteId) {
+      department.site = <any>{ siteId: updateDepartmentDTO?.siteId };
+    }
     await this.departmentRepository.save(department);
     return department;
   }

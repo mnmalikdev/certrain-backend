@@ -39,7 +39,10 @@ export class Department {
   @Column()
   extensionNumber: string;
 
-  @ManyToOne(() => Site, (site) => site.departmentOfSite)
+  @ManyToOne(() => Site, (site) => site.departmentOfSite, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   site: Site;
 
   @OneToMany(() => Role, (role) => role.site)

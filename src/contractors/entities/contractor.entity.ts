@@ -83,7 +83,10 @@ export class Contractor {
   @Column('simple-array')
   requestedDocumentation: string[];
 
-  @ManyToOne(() => Site, (site) => site.contractors)
+  @ManyToOne(() => Site, (site) => site.contractors, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   site: Site;
 
   @OneToMany(() => Employee, (employee) => employee.employedBy)
