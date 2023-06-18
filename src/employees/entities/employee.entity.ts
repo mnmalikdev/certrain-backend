@@ -59,7 +59,10 @@ export class Employee {
   @ManyToOne(() => Site, (site) => site.employees)
   worksAtSite: Site;
 
-  @ManyToOne(() => Role, (role) => role.employeeRole)
+  @ManyToOne(() => Role, (role) => role.employeeRole, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   role: Role;
 
   @ManyToOne(() => Contractor, (contractor) => contractor.employeesEmployed)

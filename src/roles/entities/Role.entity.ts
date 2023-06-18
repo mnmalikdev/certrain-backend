@@ -40,10 +40,7 @@ export class Role {
   @Column('varchar', { array: true })
   responsibilities: string[];
 
-  @ManyToOne(() => Site, (site) => site.roles, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => Site, (site) => site.roles)
   site: Site;
 
   @ManyToOne(() => Department, (department) => department.roles, {
@@ -52,9 +49,6 @@ export class Role {
   })
   department: Department;
 
-  @OneToMany(() => Employee, (employee) => employee.role, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => Employee, (employee) => employee.role)
   employeeRole: Employee;
 }

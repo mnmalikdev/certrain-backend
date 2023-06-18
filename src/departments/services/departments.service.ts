@@ -25,7 +25,7 @@ export class DepartmentService {
     newDepartment.name = createDepartmentDTO.name;
     newDepartment.phoneNumber = createDepartmentDTO.phoneNumber;
     newDepartment.extensionNumber = createDepartmentDTO.extensionNumber;
-    newDepartment.site = <any>{ site: createDepartmentDTO?.siteId };
+    newDepartment.site = <any>{ siteId: createDepartmentDTO?.siteId };
 
     await this.departmentRepository.save(newDepartment);
     return newDepartment;
@@ -46,7 +46,9 @@ export class DepartmentService {
 
   async findAllDepartments(): Promise<Department[]> {
     return this.departmentRepository.find({
-      relations: ['sites'],
+      relations: {
+        site: true,
+      },
     });
   }
 
