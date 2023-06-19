@@ -77,11 +77,9 @@ export class Contractor {
 
   @ApiProperty({
     description: 'The requested documentation',
-    example: ['Requested document 1', 'Requested document 2'],
-    type: [String],
   })
-  @Column('simple-array')
-  requestedDocumentation: string[];
+  @Column()
+  requestedDocumentation: string;
 
   @ManyToOne(() => Site, (site) => site.contractors, {
     onDelete: 'CASCADE',

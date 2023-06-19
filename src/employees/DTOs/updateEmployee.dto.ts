@@ -11,6 +11,22 @@ export class UpdateEmployeeDTO {
   })
   firstName?: string;
 
+  @IsOptional({
+    message: 'requestedDocs',
+  })
+  @IsString({ message: 'Please provide requested docs as a string' })
+  @ApiProperty()
+  requestedDocs: string;
+
+  @IsOptional({
+    message: 'timeframe in which they are required',
+  })
+  @IsString({
+    message: 'the required time frame must be provided as as tring',
+  })
+  @ApiProperty()
+  requiredWithin: string;
+
   @IsString({ message: 'Please provide surname as a string' })
   @IsOptional()
   @ApiProperty({
@@ -37,7 +53,6 @@ export class UpdateEmployeeDTO {
     required: false,
   })
   phoneNumber?: string;
-
 
   @IsString({
     message: 'Please provide employeeNo as string',

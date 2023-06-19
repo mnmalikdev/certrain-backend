@@ -56,6 +56,14 @@ export class Employee {
   @Column()
   employmentStatus: string;
 
+  @ApiProperty()
+  @Column()
+  requestedDocs: string;
+
+  @ApiProperty()
+  @Column()
+  requiredWithin: string;
+
   @ManyToOne(() => Site, (site) => site.employees)
   worksAtSite: Site;
 

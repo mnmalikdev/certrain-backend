@@ -83,11 +83,11 @@ export class CreateContractorDTO {
   docsRequiredWithin: string;
 
   @IsNotEmpty({ message: 'Please provide requested documentation' })
+  @IsString()
   @ApiProperty({
     description: 'Requested documentation',
-    type: [String],
   })
-  requestedDocumentation: string[];
+  requestedDocumentation: string;
 
   @IsString({
     message:

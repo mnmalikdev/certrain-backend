@@ -25,6 +25,8 @@ export class EmployeeService {
     newEmployee.phoneNumber = createEmployeeDTO.phoneNumber;
     newEmployee.employmentType = createEmployeeDTO.employmentType;
     newEmployee.employmentStatus = createEmployeeDTO.employmentStatus;
+    newEmployee.requestedDocs = createEmployeeDTO.requestedDocs;
+    newEmployee.requiredWithin = createEmployeeDTO.requiredWithin;
     newEmployee.worksAtSite = <any>{ siteId: createEmployeeDTO.siteId };
     newEmployee.role = <any>{ roleId: createEmployeeDTO.roleId };
     newEmployee.employedBy = <any>{

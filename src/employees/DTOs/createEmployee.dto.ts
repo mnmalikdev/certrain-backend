@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateEmployeeDTO {
   @IsString({ message: 'Please provide first Name as string' })
@@ -71,6 +71,21 @@ export class CreateEmployeeDTO {
     required: true,
   })
   siteId: string;
+
+  @IsOptional({
+    message: 'requestedDocs',
+  })
+  @ApiProperty()
+  requestedDocs: string;
+
+  @IsNotEmpty({
+    message: 'timeframe in which they are required',
+  })
+  @IsString({
+    message: 'the required time frame must be provided as as tring',
+  })
+  @ApiProperty()
+  requiredWithin: string;
 
   @IsNotEmpty({
     message: 'Please provide roleId ',

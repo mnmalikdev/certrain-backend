@@ -123,7 +123,7 @@ export class UpdateContractorDTO {
   })
   @IsOptional()
   @IsNotEmpty({ message: 'Please provide the requested documentation' })
-  requestedDocumentation?: string[];
+  requestedDocumentation?: string;
 
   @ApiProperty({
     description: 'The site ID to associate the contractor with',

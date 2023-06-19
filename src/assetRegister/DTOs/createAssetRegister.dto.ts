@@ -76,18 +76,19 @@ export class CreateAssetRegisterDto {
   })
   requiredTraining?: string;
 
-  @ApiProperty({
-    description: 'Add Documents',
-    type: 'string',
-    format: 'binary',
-  })
-  addDocuments: any; // Change the type as per your requirements
+  // @ApiProperty({
+  //   description: 'Add Documents',
+  //   type: 'string',
+  //   format: 'binary',
+  // })
+  // addDocuments: any; // Change the type as per your requirements
 
-  @IsBoolean()
-  @ApiProperty({
-    description: 'Risk Assessment Required',
-  })
-  riskAssessmentRequired: boolean;
+  // @IsBoolean()
+  // @ApiProperty({
+  //   description: 'Risk Assessment Required',
+  //   default: true,
+  // })
+  // riskAssessmentRequired: boolean;
 
   @IsNotEmpty({
     message: 'Internal Inspection Frequency must be provided',
@@ -119,9 +120,10 @@ export class CreateAssetRegisterDto {
   dateOfStatutoryInspection: string;
 
   @ApiProperty({
-    description: 'Internal Inspection Form',
     type: 'string',
     format: 'binary',
+    isArray: true,
+    required: false,
   })
-  internalInspectionForm: any; // Change the type as per your requirements
+  internalInpectionForm?: any[]; // for file uploads
 }
