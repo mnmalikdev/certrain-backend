@@ -35,10 +35,9 @@ export class Role {
 
   @ApiProperty({
     description: 'Responsibilities of the role',
-    type: [String],
   })
-  @Column('varchar', { array: true })
-  responsibilities: string[];
+  @Column()
+  responsibilities: string;
 
   @ManyToOne(() => Site, (site) => site.roles)
   site: Site;

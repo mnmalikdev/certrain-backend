@@ -44,7 +44,6 @@ export class CreateRoleDTO {
   @IsNotEmpty({ message: 'Please provide responsibilities of role ' })
   @ApiProperty({
     description: 'Responsibilities of the role',
-    type: [String],
   })
-  responsibilities: string[];
+  responsibilities: string;
 }
