@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 import { Site } from 'src/sites/entities/site.entity';
 import { Role } from 'src/roles/entities/Role.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
+import { Department } from 'src/departments/entities/department.entity';
 
 @Entity()
 export class Employee {
@@ -78,4 +79,10 @@ export class Employee {
     cascade: true,
   })
   employedBy: Contractor;
+
+  @ManyToOne(() => Department, (department) => department.employees, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  belongToDepartment: Department;
 }

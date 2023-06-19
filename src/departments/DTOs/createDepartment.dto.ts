@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateDepartmentDTO {
   @IsNotEmpty({
@@ -26,12 +26,10 @@ export class CreateDepartmentDTO {
   })
   phoneNumber: string;
 
-  @IsNotEmpty({
-    message: 'Please provide an extension number for the department',
-  })
   @IsString({
     message: 'Extension number must be a string',
   })
+  @IsOptional()
   @ApiProperty({
     description: 'The extension number of the department',
     example: '1234',

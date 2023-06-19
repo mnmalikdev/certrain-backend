@@ -27,13 +27,13 @@ export class CreateContractorDTO {
   })
   personInCharge: string;
 
-  @IsString({ message: 'Please provide role of contractor as a string' })
-  @IsNotEmpty({ message: 'Please provide role of contractor' })
+  @IsString({ message: 'Please provide roleId of contractor as a string' })
+  @IsNotEmpty({ message: 'Please provide roleId of contractor' })
   @ApiProperty({
     description: 'The role of the contractor',
     example: 'Contractor Role',
   })
-  role: string;
+  roleId: string;
 
   @IsString({
     message: 'Please provide email of person in charge as a string',

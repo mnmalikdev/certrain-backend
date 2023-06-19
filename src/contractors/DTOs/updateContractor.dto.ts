@@ -46,11 +46,11 @@ export class UpdateContractorDTO {
     required: false,
   })
   @IsString({
-    message: 'Please provide the role of the contractor as a string',
+    message: 'Please provide the roleId of the contractor as a string',
   })
   @IsOptional()
-  @IsNotEmpty({ message: 'Please provide the role of the contractor' })
-  role?: string;
+  @IsNotEmpty({ message: 'Please provide the roleId of the contractor' })
+  roleId?: string;
 
   @ApiProperty({
     description: 'The email of the person in charge',

@@ -107,6 +107,16 @@ export class UpdateEmployeeDTO {
     required: false,
   })
   contractorId?: string;
+
+  @IsString({
+    message: 'provide department ID where employee works',
+  })
+  @IsOptional()
+  @ApiProperty({
+    description: 'department id where employee works.',
+    required: false,
+  })
+  departmentId: string;
 }
 
 export class PartialUpdateEmployeeDTO extends PartialType(UpdateEmployeeDTO) {}

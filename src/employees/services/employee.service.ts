@@ -32,6 +32,9 @@ export class EmployeeService {
     newEmployee.employedBy = <any>{
       contractorId: createEmployeeDTO.contractorId,
     };
+    newEmployee.belongToDepartment = <any>{
+      departmentId: createEmployeeDTO.departmentId,
+    };
 
     await this.employeeRepository.save(newEmployee);
     return newEmployee;
@@ -51,7 +54,7 @@ export class EmployeeService {
 
   async getAllEmployees(): Promise<Employee[]> {
     return this.employeeRepository.find({
-      relations: ['worksAtSite', 'role', 'employedBy'],
+      relations: ['worksAtSite', 'role', 'employedBy', 'belongToDepartment'],
     });
   }
 
@@ -99,6 +102,12 @@ export class EmployeeService {
     if (updateEmployeeDTO.contractorId) {
       employee.employedBy = <any>{
         contractorId: updateEmployeeDTO.contractorId,
+      };
+    }
+
+    if (updateEmployeeDTO.departmentId) {
+      employee.belongToDepartment = <any>{
+        departmentId: updateEmployeeDTO.departmentId,
       };
     }
 

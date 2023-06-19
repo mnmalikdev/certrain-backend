@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Employee } from 'src/employees/entities/employee.entity';
+import { Role } from 'src/roles/entities/Role.entity';
 import { Site } from 'src/sites/entities/site.entity';
 import { Entity, Column, ManyToOne, PrimaryColumn, OneToMany } from 'typeorm';
 
@@ -31,13 +32,6 @@ export class Contractor {
   })
   @Column()
   personInCharge: string;
-
-  @ApiProperty({
-    description: 'The role of the contractor',
-    example: 'Contractor Role',
-  })
-  @Column()
-  role: string;
 
   @ApiProperty({
     description: 'The email of the person in charge',
@@ -89,6 +83,12 @@ export class Contractor {
 
   @OneToMany(() => Employee, (employee) => employee.employedBy)
   employeesEmployed: Employee[];
+
+  @ManyToOne(() => Role, (role) => role.contractorHasRole, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  roleOfContractor: Role;
 
   // Add the ManyToOne relationship with Role entity if necessary
   // @ManyToOne(() => Role, (role) => role.contractors)

@@ -25,7 +25,9 @@ export class ContractorService {
     newContractor.name = createContractorDTO.name;
     newContractor.description = createContractorDTO.description;
     newContractor.personInCharge = createContractorDTO.personInCharge;
-    newContractor.role = createContractorDTO.role;
+    newContractor.roleOfContractor = <any>{
+      roleId: createContractorDTO.roleId,
+    };
     newContractor.personInChargeEmail = createContractorDTO.personInChargeEmail;
     newContractor.personInChargePhone = createContractorDTO.personInChargePhone;
     newContractor.address = createContractorDTO.address;
@@ -53,7 +55,7 @@ export class ContractorService {
 
   async getAllContractors(): Promise<Contractor[]> {
     return this.contractorRepository.find({
-      relations: ['site'],
+      relations: ['site', 'roleOfContractor'],
     });
   }
 
@@ -80,8 +82,10 @@ export class ContractorService {
     if (updateContractorDTO.personInCharge) {
       contractor.personInCharge = updateContractorDTO.personInCharge;
     }
-    if (updateContractorDTO.role) {
-      contractor.role = updateContractorDTO.role;
+    if (updateContractorDTO.roleId) {
+      contractor.roleOfContractor = <any>{
+        roleId: updateContractorDTO.roleId,
+      };
     }
     if (updateContractorDTO.personInChargeEmail) {
       contractor.personInChargeEmail = updateContractorDTO.personInChargeEmail;

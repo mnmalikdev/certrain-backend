@@ -72,6 +72,15 @@ export class CreateEmployeeDTO {
   })
   siteId: string;
 
+  @IsString({
+    message: 'provide department ID where employee works',
+  })
+  @ApiProperty({
+    description: 'department id where employee works.',
+    required: true,
+  })
+  departmentId: string;
+
   @IsOptional({
     message: 'requestedDocs',
   })

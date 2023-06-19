@@ -11,6 +11,7 @@ import {
 import { Department } from 'src/departments/entities/department.entity';
 import { Site } from 'src/sites/entities/site.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
+import { Contractor } from 'src/contractors/entities/contractor.entity';
 
 @Entity()
 export class Role {
@@ -36,18 +37,26 @@ export class Role {
   @ApiProperty({
     description: 'Responsibilities of the role',
   })
-  @Column()
+  @Column({ nullable: true })
   responsibilities: string;
 
-  @ManyToOne(() => Site, (site) => site.roles)
+  @ManyToOne(() => Site, (site) => site.roles, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    nullable: true, // Make site property optional
+  })
   site: Site;
 
   @ManyToOne(() => Department, (department) => department.roles, {
     cascade: true,
     onDelete: 'CASCADE',
+    nullable: true, // Make department property optional
   })
-  department: Department;
+  department?: Department;
 
   @OneToMany(() => Employee, (employee) => employee.role)
   employeeRole: Employee;
+
+  @OneToMany(() => Contractor, (contractor) => contractor.roleOfContractor)
+  contractorHasRole: Employee[];
 }

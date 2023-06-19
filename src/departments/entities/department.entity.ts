@@ -6,37 +6,43 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Site } from 'src/sites/entities/site.entity';
 import { Role } from 'src/roles/entities/Role.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
 
 @Entity()
 export class Department {
   @ApiProperty({
     description: 'Unique ID of the department',
   })
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   departmentId: string;
 
   @ApiProperty({
     description: 'The name of the department',
     example: 'Example Department',
   })
-  @Column()
+  @Column({
+    nullable: true,
+  })
   name: string;
 
   @ApiProperty({
     description: 'The phone number of the department',
     example: '123-456-7890',
   })
-  @Column()
+  @Column({
+    nullable: true,
+  })
   phoneNumber: string;
 
   @ApiProperty({
     description: 'The extension number of the department',
     example: '1234',
   })
-  @Column()
+  @Column({ nullable: true })
   extensionNumber: string;
 
   @ManyToOne(() => Site, (site) => site.departmentOfSite, {
@@ -45,6 +51,11 @@ export class Department {
   })
   site: Site;
 
-  @OneToMany(() => Role, (role) => role.site)
+  @OneToMany(() => Role, (role) => role.site, {
+    nullable: true,
+  })
   roles: Role;
+
+  @OneToMany(() => Employee, (employee) => employee.belongToDepartment)
+  employees: Employee;
 }
