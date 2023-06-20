@@ -46,6 +46,7 @@ export class ContractorService {
       where: {
         contractorId,
       },
+      relations: ['site', 'roleOfContractor'],
     });
     if (!contractor) {
       throw new NotFoundException('Contractor not found');
