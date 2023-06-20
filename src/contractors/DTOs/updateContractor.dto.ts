@@ -114,7 +114,6 @@ export class UpdateContractorDTO {
 
   @ApiProperty({
     description: 'The requested documentation',
-    type: [String],
     required: false,
   })
   @IsString({
