@@ -70,18 +70,18 @@ export class Employee {
 
   @ManyToOne(() => Role, (role) => role.employeeRole, {
     cascade: true,
-    onDelete: 'CASCADE',
+    onDelete: 'NO ACTION',
   })
   role: Role;
 
   @ManyToOne(() => Contractor, (contractor) => contractor.employeesEmployed, {
-    onDelete: 'CASCADE',
+    onDelete: 'NO ACTION',
     cascade: true,
   })
   employedBy: Contractor;
 
   @ManyToOne(() => Department, (department) => department.employees, {
-    onDelete: 'CASCADE',
+    onDelete: 'NO ACTION',
     cascade: true,
   })
   belongToDepartment: Department;

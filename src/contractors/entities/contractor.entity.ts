@@ -76,7 +76,7 @@ export class Contractor {
   requestedDocumentation: string;
 
   @ManyToOne(() => Site, (site) => site.contractors, {
-    onDelete: 'CASCADE',
+    onDelete: 'NO ACTION',
     cascade: true,
   })
   site: Site;
@@ -85,7 +85,7 @@ export class Contractor {
   employeesEmployed: Employee[];
 
   @ManyToOne(() => Role, (role) => role.contractorHasRole, {
-    onDelete: 'CASCADE',
+    onDelete: 'NO ACTION',
     cascade: true,
   })
   roleOfContractor: Role;
