@@ -38,9 +38,10 @@ export class AssetRegister {
   @Column()
   requiredTraining: string;
 
+  //kept as string because multipart data only  accepts strings. so in dto, we implement a boolean string.
   @ApiProperty()
   @Column()
-  riskAssessmentRequired: boolean;
+  riskAssessmentRequired: string;
 
   @ApiProperty()
   @Column()
@@ -57,4 +58,8 @@ export class AssetRegister {
   @ApiProperty()
   @Column({ type: 'text', nullable: true })
   internalInpectionForm: string; // Updated to store the file path or file name
+
+  @ApiProperty()
+  @Column({ type: 'text', nullable: true })
+  documents: string;
 }

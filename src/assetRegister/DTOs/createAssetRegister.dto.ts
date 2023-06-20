@@ -1,5 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsString,
+  IsBoolean,
+  IsOptional,
+  IsBooleanString,
+} from 'class-validator';
 
 export class CreateAssetRegisterDto {
   @IsNotEmpty({
@@ -119,11 +126,31 @@ export class CreateAssetRegisterDto {
   })
   dateOfStatutoryInspection: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: 'string',
     format: 'binary',
-    isArray: true,
-    required: false,
+    description: 'Internal Inspection Form',
   })
-  internalInpectionForm?: any[]; // for file uploads
+  @Type(() => Object)
+  internalInspectionForm?: Express.Multer.File;
+
+  @ApiPropertyOptional({
+    type: 'string',
+    format: 'binary',
+    description: 'Documents',
+  })
+  @Type(() => Object)
+  documents?: Express.Multer.File;
+
+  @IsNotEmpty({
+    message: 'Risk Assessment Required must be provided',
+  })
+  @IsBooleanString({
+    message: 'Risk Assessment Required must be a boolean value',
+  })
+  @ApiProperty({
+    description: 'Risk Assessment Required',
+    default: true,
+  })
+  riskAssessmentRequired: string;
 }
