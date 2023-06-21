@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsBoolean,
   IsBooleanString,
+  IsNotEmpty,
 } from 'class-validator';
 import { Express } from 'express';
 
@@ -98,4 +99,31 @@ export class UpdateAssetRegisterDto {
     description: 'Documents',
   })
   documents?: Express.Multer.File;
+
+  @IsOptional()
+  @IsString({
+    message: 'please provide area as string',
+  })
+  @ApiPropertyOptional({
+    description: 'area Required',
+  })
+  area?: string;
+
+  @IsOptional()
+  @IsString({
+    message: 'please provide siteId as string',
+  })
+  @ApiPropertyOptional({
+    description: 'site Id',
+  })
+  siteId?: string;
+
+  @IsOptional()
+  @IsString({
+    message: 'please provide employeeId as string',
+  })
+  @ApiPropertyOptional({
+    description: 'employee Id',
+  })
+  employeeId?: string;
 }

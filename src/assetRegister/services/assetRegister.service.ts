@@ -36,7 +36,9 @@ export class AssetRegisterService {
     assetRegister.internalInspectionFrequency = dto.internalInspectionFrequency;
     assetRegister.statutoryInspection = dto.statutoryInspection;
     assetRegister.dateOfStatutoryInspection = dto.dateOfStatutoryInspection;
-
+    assetRegister.area = dto.area;
+    assetRegister.assetsOfEmployee = <any>{ employeeId: dto.employeeId };
+    assetRegister.assetsOfSite = <any>{ siteId: dto.siteId };
     assetRegister.riskAssessmentRequired = dto.riskAssessmentRequired;
 
     // Handle internal inspection form upload
@@ -130,6 +132,16 @@ export class AssetRegisterService {
       assetRegister.dateOfStatutoryInspection = dto.dateOfStatutoryInspection;
     }
 
+    if (dto.area) {
+      assetRegister.area = dto.area;
+    }
+    if (dto.siteId) {
+      assetRegister.assetsOfSite = <any>{ siteId: dto.siteId };
+    }
+    if (dto.employeeId) {
+      assetRegister.assetsOfEmployee = <any>{ employeeId: dto.employeeId };
+    }
+
     // Handle internal inspection form upload
     const internalInspectionFormFile = files?.internalInspectionForm?.[0];
     if (internalInspectionFormFile) {
@@ -198,6 +210,7 @@ export class AssetRegisterService {
       where: {
         assetId,
       },
+      relations: ['assetsOfEmployee', 'assetsOfSite'],
     });
     if (!asset) {
       throw new NotFoundException('Asset Register not found');
@@ -206,6 +219,8 @@ export class AssetRegisterService {
   }
 
   async getAllAssetRegisters(): Promise<AssetRegister[]> {
-    return this.assetRegisterRepository.find();
+    return this.assetRegisterRepository.find({
+      relations: ['assetsOfEmployee', 'assetsOfSite'],
+    });
   }
 }

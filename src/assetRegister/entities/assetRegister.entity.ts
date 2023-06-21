@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn } from 'typeorm';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { Site } from 'src/sites/entities/site.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  PrimaryColumn,
+  ManyToOne,
+} from 'typeorm';
 
 @Entity()
 export class AssetRegister {
@@ -9,6 +17,10 @@ export class AssetRegister {
   @ApiProperty()
   @Column()
   assetNo: string;
+
+  @ApiProperty()
+  @Column()
+  area: string;
 
   @ApiProperty()
   @Column()
@@ -62,4 +74,10 @@ export class AssetRegister {
   @ApiProperty()
   @Column({ type: 'text', nullable: true })
   documents: string;
+
+  @ManyToOne(() => Site, (site) => site.assets)
+  assetsOfSite: Site;
+
+  @ManyToOne(() => Employee, (employee) => employee.employeeHasAssets)
+  assetsOfEmployee: Employee;
 }

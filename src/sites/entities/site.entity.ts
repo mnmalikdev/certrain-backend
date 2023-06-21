@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
@@ -44,4 +45,11 @@ export class Site {
 
   @OneToMany(() => Employee, (employee) => employee.worksAtSite)
   employees: Employee;
+
+  @OneToMany(
+    () => AssetRegister,
+    (assetRegister) => assetRegister.assetsOfSite,
+    { onDelete: 'CASCADE', cascade: true },
+  )
+  assets: AssetRegister[];
 }

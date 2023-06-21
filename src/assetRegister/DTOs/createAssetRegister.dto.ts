@@ -153,4 +153,37 @@ export class CreateAssetRegisterDto {
     default: true,
   })
   riskAssessmentRequired: string;
+
+  @IsNotEmpty({
+    message: 'please provide area',
+  })
+  @IsString({
+    message: 'please provide area as string',
+  })
+  @ApiProperty({
+    description: 'area Required',
+  })
+  area: string;
+
+  @IsNotEmpty({
+    message: 'please provide siteId',
+  })
+  @IsString({
+    message: 'please provide siteId as string',
+  })
+  @ApiProperty({
+    description: 'site Id',
+  })
+  siteId: string;
+
+  @IsNotEmpty({
+    message: 'please provide employeeId',
+  })
+  @IsString({
+    message: 'please provide employeeId as string',
+  })
+  @ApiProperty({
+    description: 'employee Id',
+  })
+  employeeId: string;
 }
