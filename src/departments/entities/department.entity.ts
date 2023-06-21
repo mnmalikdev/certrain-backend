@@ -46,7 +46,7 @@ export class Department {
   extensionNumber: string;
 
   @ManyToOne(() => Site, (site) => site.departmentOfSite, {
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     cascade: true,
   })
   site: Site;

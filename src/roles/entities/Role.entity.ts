@@ -42,14 +42,14 @@ export class Role {
 
   @ManyToOne(() => Site, (site) => site.roles, {
     cascade: true,
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     nullable: true, // Make site property optional
   })
   site: Site;
 
   @ManyToOne(() => Department, (department) => department.roles, {
     cascade: true,
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     nullable: true, // Make department property optional
   })
   department?: Department;

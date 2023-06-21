@@ -65,23 +65,26 @@ export class Employee {
   @Column()
   requiredWithin: string;
 
-  @ManyToOne(() => Site, (site) => site.employees)
+  @ManyToOne(() => Site, (site) => site.employees, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   worksAtSite: Site;
 
   @ManyToOne(() => Role, (role) => role.employeeRole, {
     cascade: true,
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
   })
   role: Role;
 
   @ManyToOne(() => Contractor, (contractor) => contractor.employeesEmployed, {
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     cascade: true,
   })
   employedBy: Contractor;
 
   @ManyToOne(() => Department, (department) => department.employees, {
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     cascade: true,
   })
   belongToDepartment: Department;
