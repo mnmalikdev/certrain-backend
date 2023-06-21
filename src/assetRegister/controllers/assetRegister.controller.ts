@@ -92,7 +92,7 @@ export class AssetRegisterController {
     );
   }
 
-  @Get('fetchAsster/:assetId')
+  @Get('fetchAsset/:assetId')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Endpoint to fetch asset ' })
   async fetchSingleAsset(
