@@ -93,10 +93,6 @@ export class Employee {
   @OneToMany(
     () => AssetRegister,
     (assetRegister) => assetRegister.assetsOfEmployee,
-    {
-      onDelete: 'CASCADE',
-      cascade: true,
-    },
   )
   employeeHasAssets: AssetRegister[];
 }

@@ -78,6 +78,9 @@ export class AssetRegister {
   @ManyToOne(() => Site, (site) => site.assets)
   assetsOfSite: Site;
 
-  @ManyToOne(() => Employee, (employee) => employee.employeeHasAssets)
+  @ManyToOne(() => Employee, (employee) => employee.employeeHasAssets, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
   assetsOfEmployee: Employee;
 }
