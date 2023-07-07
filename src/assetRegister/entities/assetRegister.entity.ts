@@ -1,13 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from 'src/0auth2.0/entites/user.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Site } from 'src/sites/entities/site.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  PrimaryColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class AssetRegister {
@@ -83,4 +78,7 @@ export class AssetRegister {
     cascade: true,
   })
   assetsOfEmployee: Employee;
+
+  @ManyToOne(() => User, (user) => user.userAssets)
+  assetCreatedBy: User;
 }

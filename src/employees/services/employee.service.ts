@@ -14,6 +14,7 @@ export class EmployeeService {
   ) {}
 
   async createEmployee(
+    userId: string,
     createEmployeeDTO: CreateEmployeeDTO,
   ): Promise<Employee> {
     const newEmployee = new Employee();
@@ -35,14 +36,16 @@ export class EmployeeService {
     newEmployee.belongToDepartment = <any>{
       departmentId: createEmployeeDTO.departmentId,
     };
+    newEmployee.employeeCreatedBy = <any>{ userId: userId };
 
     await this.employeeRepository.save(newEmployee);
     return newEmployee;
   }
 
-  async getEmployeeById(employeeId: string): Promise<Employee> {
+  async getEmployeeById(userId: string, employeeId: string): Promise<Employee> {
     const employee = await this.employeeRepository.findOne({
       where: {
+        employeeCreatedBy: <any>{ userId: userId },
         employeeId,
       },
       relations: ['worksAtSite', 'role', 'employedBy', 'belongToDepartment'],
@@ -53,18 +56,23 @@ export class EmployeeService {
     return employee;
   }
 
-  async getAllEmployees(): Promise<Employee[]> {
+  async getAllEmployees(userId: string): Promise<Employee[]> {
     return this.employeeRepository.find({
+      where: {
+        employeeCreatedBy: <any>{ userId: userId },
+      },
       relations: ['worksAtSite', 'role', 'employedBy', 'belongToDepartment'],
     });
   }
 
   async updateEmployee(
+    userId: string,
     employeeId: string,
     updateEmployeeDTO: UpdateEmployeeDTO,
   ): Promise<Employee> {
     const employee = await this.employeeRepository.findOne({
       where: {
+        employeeCreatedBy: <any>{ userId: userId },
         employeeId,
       },
     });
@@ -116,9 +124,10 @@ export class EmployeeService {
     return employee;
   }
 
-  async deleteEmployee(employeeId: string): Promise<void> {
+  async deleteEmployee(userId: string, employeeId: string): Promise<void> {
     const employee = await this.employeeRepository.findOne({
       where: {
+        employeeCreatedBy: <any>{ userId: userId },
         employeeId,
       },
     });

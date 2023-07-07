@@ -23,8 +23,6 @@ export class CustomMailService {
     );
     const url = `${process.env.BASE_URL_FRONTEND}auth/verifyUser?token=${token}`;
 
-    console.log('token==>', token);
-
     await this.mailerService.sendMail({
       to: email,
       // from: '"Support Team" <support@example.com>', // override default from

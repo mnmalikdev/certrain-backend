@@ -92,7 +92,6 @@ export class AuthService {
   }
 
   async signUp(signupDTO: SignUpDTO) {
-    console.log(signupDTO);
     const user = await this.userRepository.findOne({
       where: { email: signupDTO.email },
     });
@@ -135,12 +134,9 @@ export class AuthService {
   }
 
   async confirmUserAccount(token: string) {
-    console.log('YE LO TOKEN', token);
     const result = await this.jwtService.verify(token, {
       secret: process.env.VERIFICATION_SECRET,
     });
-
-    console.log('token==>', result);
 
     if (!result) {
       throw new ForbiddenException('Token Expired');
@@ -193,13 +189,10 @@ export class AuthService {
   }
 
   async verifyNewCreatedUser(token: string) {
-    console.log('YE LO TOKEN', token);
     try {
       const result = await this.jwtService.verify(token, {
         secret: process.env.VERIFICATION_SECRET,
       });
-
-      console.log('token==>', result);
 
       if (!result) {
         throw new ForbiddenException('Token Expired');

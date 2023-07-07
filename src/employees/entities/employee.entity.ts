@@ -5,6 +5,7 @@ import { Role } from 'src/roles/entities/Role.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';
+import { User } from 'src/0auth2.0/entites/user.entity';
 
 @Entity()
 export class Employee {
@@ -95,4 +96,7 @@ export class Employee {
     (assetRegister) => assetRegister.assetsOfEmployee,
   )
   employeeHasAssets: AssetRegister[];
+
+  @ManyToOne(() => User, (user) => user.userEmployees)
+  employeeCreatedBy: User;
 }

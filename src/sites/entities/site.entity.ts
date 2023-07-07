@@ -4,13 +4,9 @@ import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Role } from 'src/roles/entities/Role.entity';
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+
+import { User } from 'src/0auth2.0/entites/user.entity';
 
 @Entity()
 export class Site {
@@ -52,4 +48,7 @@ export class Site {
     { onDelete: 'CASCADE', cascade: true },
   )
   assets: AssetRegister[];
+
+  @ManyToOne(() => User, (user) => user.userSites)
+  siteCreatedBy: User;
 }

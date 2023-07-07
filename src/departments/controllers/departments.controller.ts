@@ -8,14 +8,20 @@ import {
   HttpStatus,
   HttpException,
   Patch,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { DepartmentService } from '../services/departments.service';
 import { CreateDepartmentDTO } from '../DTOs/createDepartment.dto';
 import { Department } from '../entities/department.entity';
 import { UpdateDepartmentDTO } from '../DTOs/updateDepartment.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @ApiTags('Departments')
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @Controller('departments')
 export class DepartmentController {
   constructor(private readonly departmentService: DepartmentService) {}
@@ -27,10 +33,12 @@ export class DepartmentController {
     type: Department,
   })
   async createDepartment(
+    @Req() req: Request,
     @Body() createDepartmentDTO: CreateDepartmentDTO,
   ): Promise<Department> {
     try {
       const newDepartment = await this.departmentService.createDepartment(
+        req.user['sub'],
         createDepartmentDTO,
       );
       return newDepartment;
@@ -45,10 +53,14 @@ export class DepartmentController {
     description: 'Deletes a department',
   })
   async deleteDepartment(
+    @Req() req: Request,
     @Param('departmentId') departmentId: string,
   ): Promise<void> {
     try {
-      await this.departmentService.deleteDepartment(departmentId);
+      await this.departmentService.deleteDepartment(
+        req.user['sub'],
+        departmentId,
+      );
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
@@ -61,10 +73,12 @@ export class DepartmentController {
     type: Department,
   })
   async findDepartmentById(
+    @Req() req: Request,
     @Param('departmentId') departmentId: string,
   ): Promise<Department> {
     try {
       const department = await this.departmentService.findDepartmentById(
+        req.user['sub'],
         departmentId,
       );
       return department;
@@ -79,8 +93,10 @@ export class DepartmentController {
     description: 'Retrieves all departments',
     type: [Department],
   })
-  async findAllDepartments(): Promise<Department[]> {
-    const departments = await this.departmentService.findAllDepartments();
+  async findAllDepartments(@Req() req: Request): Promise<Department[]> {
+    const departments = await this.departmentService.findAllDepartments(
+      req.user['sub'],
+    );
     return departments;
   }
 
@@ -91,11 +107,13 @@ export class DepartmentController {
     type: Department,
   })
   async updateDepartment(
+    @Req() req: Request,
     @Param('departmentId') departmentId: string,
     @Body() updateDepartmentDTO: UpdateDepartmentDTO,
   ): Promise<Department> {
     try {
       const updatedDepartment = await this.departmentService.updateDepartment(
+        req.user['sub'],
         departmentId,
         updateDepartmentDTO,
       );

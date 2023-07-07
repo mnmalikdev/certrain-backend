@@ -12,6 +12,7 @@ import { Department } from 'src/departments/entities/department.entity';
 import { Site } from 'src/sites/entities/site.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
+import { User } from 'src/0auth2.0/entites/user.entity';
 
 @Entity()
 export class Role {
@@ -59,4 +60,7 @@ export class Role {
 
   @OneToMany(() => Contractor, (contractor) => contractor.roleOfContractor)
   contractorHasRole: Employee[];
+
+  @ManyToOne(() => User, (user) => user.userRoles)
+  roleCreatedBy: User;
 }

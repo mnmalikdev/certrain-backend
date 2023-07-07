@@ -18,6 +18,7 @@ export class DepartmentService {
   ) {}
 
   async createDepartment(
+    userId: string,
     createDepartmentDTO: CreateDepartmentDTO,
   ): Promise<Department> {
     const newDepartment = new Department();
@@ -26,14 +27,19 @@ export class DepartmentService {
     newDepartment.phoneNumber = createDepartmentDTO.phoneNumber;
     newDepartment.extensionNumber = createDepartmentDTO.extensionNumber;
     newDepartment.site = <any>{ siteId: createDepartmentDTO?.siteId };
+    newDepartment.deptCreatedBy = <any>{ userId: userId };
 
     await this.departmentRepository.save(newDepartment);
     return newDepartment;
   }
 
-  async findDepartmentById(departmentId: string): Promise<Department> {
+  async findDepartmentById(
+    userId: string,
+    departmentId: string,
+  ): Promise<Department> {
     const department = await this.departmentRepository.findOne({
       where: {
+        deptCreatedBy: <any>{ userId: userId },
         departmentId,
       },
       relations: ['site'],
@@ -44,8 +50,11 @@ export class DepartmentService {
     return department;
   }
 
-  async findAllDepartments(): Promise<Department[]> {
+  async findAllDepartments(userId: string): Promise<Department[]> {
     return this.departmentRepository.find({
+      where: {
+        deptCreatedBy: <any>{ userId: userId },
+      },
       relations: {
         site: true,
       },
@@ -53,10 +62,11 @@ export class DepartmentService {
   }
 
   async updateDepartment(
+    userId: string,
     departmentId: string,
     updateDepartmentDTO: Partial<UpdateDepartmentDTO>,
   ): Promise<Department> {
-    const department = await this.findDepartmentById(departmentId);
+    const department = await this.findDepartmentById(userId, departmentId);
     Object.assign(department, updateDepartmentDTO);
     if (updateDepartmentDTO?.siteId) {
       department.site = <any>{ siteId: updateDepartmentDTO?.siteId };
@@ -65,8 +75,8 @@ export class DepartmentService {
     return department;
   }
 
-  async deleteDepartment(departmentId: string): Promise<void> {
-    const department = await this.findDepartmentById(departmentId);
+  async deleteDepartment(userId: string, departmentId: string): Promise<void> {
+    const department = await this.findDepartmentById(userId, departmentId);
     await this.departmentRepository.remove(department);
   }
 }

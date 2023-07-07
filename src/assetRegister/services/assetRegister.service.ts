@@ -17,6 +17,7 @@ export class AssetRegisterService {
     private readonly assetRegisterRepository: Repository<AssetRegister>,
   ) {}
   async createAssetRegister(
+    userId: string,
     dto: CreateAssetRegisterDto,
     files: any,
   ): Promise<AssetRegister> {
@@ -40,6 +41,7 @@ export class AssetRegisterService {
     assetRegister.assetsOfEmployee = <any>{ employeeId: dto.employeeId };
     assetRegister.assetsOfSite = <any>{ siteId: dto.siteId };
     assetRegister.riskAssessmentRequired = dto.riskAssessmentRequired;
+    assetRegister.assetCreatedBy = <any>{ userId: userId };
 
     // Handle internal inspection form upload
     const internalInspectionFormFile = files.internalInspectionForm[0];
@@ -82,12 +84,14 @@ export class AssetRegisterService {
   }
 
   async updateAssetRegister(
+    userId: string,
     assetId: string,
     dto: UpdateAssetRegisterDto,
     files: any,
   ): Promise<AssetRegister> {
     const assetRegister = await this.assetRegisterRepository.findOne({
       where: {
+        assetCreatedBy: <any>{ userId: userId },
         assetId,
       },
     });
@@ -182,9 +186,10 @@ export class AssetRegisterService {
     return await this.assetRegisterRepository.save(assetRegister);
   }
 
-  async deleteAssetRegister(assetId: string): Promise<void> {
+  async deleteAssetRegister(userId: string, assetId: string): Promise<void> {
     const assetRegister = await this.assetRegisterRepository.findOne({
       where: {
+        assetCreatedBy: <any>{ userId: userId },
         assetId,
       },
     });
@@ -205,9 +210,13 @@ export class AssetRegisterService {
     await this.assetRegisterRepository.remove(assetRegister);
   }
 
-  async getAssetRegister(assetId: string): Promise<AssetRegister> {
+  async getAssetRegister(
+    userId: string,
+    assetId: string,
+  ): Promise<AssetRegister> {
     const asset = await this.assetRegisterRepository.findOne({
       where: {
+        assetCreatedBy: <any>{ userId: userId },
         assetId,
       },
       relations: ['assetsOfEmployee', 'assetsOfSite'],
@@ -218,8 +227,11 @@ export class AssetRegisterService {
     return asset;
   }
 
-  async getAllAssetRegisters(): Promise<AssetRegister[]> {
+  async getAllAssetRegisters(userId: string): Promise<AssetRegister[]> {
     return this.assetRegisterRepository.find({
+      where: {
+        assetCreatedBy: <any>{ userId: userId },
+      },
       relations: ['assetsOfEmployee', 'assetsOfSite'],
     });
   }

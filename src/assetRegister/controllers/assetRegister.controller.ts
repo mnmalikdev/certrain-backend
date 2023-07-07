@@ -14,19 +14,26 @@ import {
   Delete,
   NotFoundException,
   Get,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiConsumes, ApiOperation, ApiBody, ApiTags } from '@nestjs/swagger';
 import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-  FilesInterceptor,
-} from '@nestjs/platform-express';
+  ApiConsumes,
+  ApiOperation,
+  ApiBody,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CreateAssetRegisterDto } from '../DTOs/createAssetRegister.dto';
 import { AssetRegisterService } from '../services/assetRegister.service';
 import { UpdateAssetRegisterDto } from '../DTOs/updateAssetRegister.dto';
 import { AssetRegister } from '../entities/assetRegister.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Controller('asset-register')
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('asset-register')
 export class AssetRegisterController {
   constructor(private readonly assetRegisterService: AssetRegisterService) {}
@@ -46,18 +53,29 @@ export class AssetRegisterController {
     ]),
   )
   async createAssetRegister(
+    @Req() req: Request,
     @UploadedFiles() files: any,
     @Body() payload: CreateAssetRegisterDto,
   ) {
-    return await this.assetRegisterService.createAssetRegister(payload, files);
+    return await this.assetRegisterService.createAssetRegister(
+      req.user['sub'],
+      payload,
+      files,
+    );
   }
 
   @Delete('deleteAsset/:assetId')
   @ApiOperation({ summary: 'Endpoint to delete asset  ' })
   @HttpCode(HttpStatus.OK)
-  async deleteAssetRegister(@Param('assetId') assetId: string): Promise<void> {
+  async deleteAssetRegister(
+    @Req() req: Request,
+    @Param('assetId') assetId: string,
+  ): Promise<void> {
     try {
-      await this.assetRegisterService.deleteAssetRegister(assetId);
+      await this.assetRegisterService.deleteAssetRegister(
+        req.user['sub'],
+        assetId,
+      );
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw new NotFoundException('Asset Register not found');
@@ -81,11 +99,13 @@ export class AssetRegisterController {
     ]),
   )
   async updateAssetRegister(
+    @Req() req: Request,
     @Param('assetId') assetId: string,
     @UploadedFiles() files: any,
     @Body() dto: UpdateAssetRegisterDto,
   ) {
     return await this.assetRegisterService.updateAssetRegister(
+      req.user['sub'],
       assetId,
       dto,
       files,
@@ -96,9 +116,13 @@ export class AssetRegisterController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Endpoint to fetch asset ' })
   async fetchSingleAsset(
+    @Req() req: Request,
     @Param('assetId') assetId: string,
   ): Promise<AssetRegister> {
-    const asset = await this.assetRegisterService.getAssetRegister(assetId);
+    const asset = await this.assetRegisterService.getAssetRegister(
+      req.user['sub'],
+      assetId,
+    );
     if (!asset) {
       throw new NotFoundException('Asset Register not found');
     }
@@ -108,7 +132,7 @@ export class AssetRegisterController {
   @Get('fetchAllAssets')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Endpoint to fetch all assets ' })
-  async fetchAllAssets(): Promise<AssetRegister[]> {
-    return this.assetRegisterService.getAllAssetRegisters();
+  async fetchAllAssets(@Req() req: Request): Promise<AssetRegister[]> {
+    return this.assetRegisterService.getAllAssetRegisters(req.user['sub']);
   }
 }

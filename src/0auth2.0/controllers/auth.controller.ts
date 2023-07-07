@@ -68,7 +68,6 @@ export class AuthController {
   async refreshToken(@Req() req: Request) {
     const user = req.user;
     const tokens = req['tokens'];
-    console.log(user);
     return await this.authService.refreshTokens(
       user['sub'],
       tokens['refreshToken'],
@@ -105,7 +104,6 @@ export class AuthController {
   })
   @ApiOperation({ summary: 'user access to app is suspended' })
   async logOut(@Req() req: Request) {
-    console.log(req.user);
     return await this.authService.Logout(req.user['sub']);
   }
 }

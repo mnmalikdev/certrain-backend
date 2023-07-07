@@ -18,9 +18,10 @@ export class RoleService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  async createRole(createRoleDTO: CreateRoleDTO) {
+  async createRole(userId: string, createRoleDTO: CreateRoleDTO) {
     const role = await this.roleRepository.findOne({
       where: {
+        roleCreatedBy: <any>{ userId: userId },
         name: createRoleDTO?.name,
       },
     });
@@ -34,14 +35,18 @@ export class RoleService {
     newRole.responsibilities = createRoleDTO.responsibilities;
     newRole.site = <any>{ siteId: createRoleDTO?.siteId };
     newRole.department = <any>{ departmentId: createRoleDTO?.departmentId };
+    newRole.roleCreatedBy = <any>{
+      userId: userId,
+    };
 
     await this.roleRepository.save(newRole);
     return newRole;
   }
 
-  async findRoleById(roleId: string): Promise<Role> {
+  async findRoleById(userId: string, roleId: string): Promise<Role> {
     const role = await this.roleRepository.findOne({
       where: {
+        roleCreatedBy: <any>{ userId: userId },
         roleId,
       },
       relations: ['site', 'department'],
@@ -52,15 +57,19 @@ export class RoleService {
     return role;
   }
 
-  async findAllRoles(): Promise<Role[]> {
+  async findAllRoles(userId: string): Promise<Role[]> {
     return this.roleRepository.find({
+      where: {
+        roleCreatedBy: <any>{ userId: userId },
+      },
       relations: ['site', 'department'],
     });
   }
 
-  async deleteRole(roleId: string): Promise<void> {
+  async deleteRole(userId: string, roleId: string): Promise<void> {
     const role = await this.roleRepository.findOne({
       where: {
+        roleCreatedBy: <any>{ userId: userId },
         roleId,
       },
     });
@@ -71,10 +80,11 @@ export class RoleService {
   }
 
   async updateRole(
+    userId: string,
     roleId: string,
     updateRoleDTO: UpdateRoleDTO,
   ): Promise<Role> {
-    const role = await this.findRoleById(roleId);
+    const role = await this.findRoleById(userId, roleId);
     if (updateRoleDTO.name) {
       role.name = updateRoleDTO.name;
     }

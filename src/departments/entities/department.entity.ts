@@ -11,6 +11,7 @@ import {
 import { Site } from 'src/sites/entities/site.entity';
 import { Role } from 'src/roles/entities/Role.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
+import { User } from 'src/0auth2.0/entites/user.entity';
 
 @Entity()
 export class Department {
@@ -58,4 +59,7 @@ export class Department {
 
   @OneToMany(() => Employee, (employee) => employee.belongToDepartment)
   employees: Employee;
+
+  @ManyToOne(() => User, (user) => user.userDepts)
+  deptCreatedBy: User;
 }

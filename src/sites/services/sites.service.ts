@@ -17,28 +17,30 @@ export class SiteService {
     private readonly siteRepository: Repository<Site>,
   ) {}
 
-  async createSite(createSiteDTO: CreateSiteDTO) {
+  async createSite(userId: string, createSiteDTO: CreateSiteDTO) {
     const site = await this.siteRepository.findOne({
       where: {
-        name: createSiteDTO?.name,
+        address: createSiteDTO?.address,
+        siteCreatedBy: <any>{ userId: userId },
       },
     });
     if (site) {
-      throw new ForbiddenException('A site with this name already exists');
+      throw new ForbiddenException('A site with this address already exists');
     }
     const newSite = new Site();
     newSite.siteId = uuidv4();
     newSite.name = createSiteDTO.name;
     newSite.address = createSiteDTO.address;
-
+    newSite.siteCreatedBy = <any>{ userId: userId };
     await this.siteRepository.save(newSite);
     return newSite;
   }
 
-  async findSiteById(siteId: string): Promise<Site> {
+  async findSiteById(userId: string, siteId: string): Promise<Site> {
     const site = await this.siteRepository.findOne({
       where: {
         siteId,
+        siteCreatedBy: <any>{ userId: userId },
       },
       relations: ['departmentOfSite'],
     });
@@ -48,15 +50,19 @@ export class SiteService {
     return site;
   }
 
-  async findAllSites(): Promise<Site[]> {
+  async findAllSites(userId: string): Promise<Site[]> {
     return this.siteRepository.find({
+      where: {
+        siteCreatedBy: <any>{ userId: userId },
+      },
       relations: ['departmentOfSite'],
     });
   }
 
-  async deleteSite(siteId: string): Promise<void> {
+  async deleteSite(userId: string, siteId: string): Promise<void> {
     const site = await this.siteRepository.findOne({
       where: {
+        siteCreatedBy: <any>{ userId: userId },
         siteId,
       },
     });
@@ -69,10 +75,11 @@ export class SiteService {
   }
 
   async updateSite(
+    userId: string,
     siteId: string,
     updateSiteDTO: UpdateSiteDTO,
   ): Promise<Site> {
-    const site = await this.findSiteById(siteId);
+    const site = await this.findSiteById(userId, siteId);
 
     if (updateSiteDTO.name) {
       site.name = updateSiteDTO.name;

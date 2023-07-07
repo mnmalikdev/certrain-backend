@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  ForbiddenException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Contractor } from '../entities/contractor.entity';
@@ -18,6 +14,7 @@ export class ContractorService {
   ) {}
 
   async createContractor(
+    userId: string,
     createContractorDTO: CreateContractorDTO,
   ): Promise<Contractor> {
     const newContractor = new Contractor();
@@ -36,14 +33,19 @@ export class ContractorService {
     newContractor.requestedDocumentation =
       createContractorDTO.requestedDocumentation;
     newContractor.site = <any>{ siteId: createContractorDTO.siteId };
+    newContractor.contractorCreatedBy = <any>{ userId: userId };
 
     await this.contractorRepository.save(newContractor);
     return newContractor;
   }
 
-  async getContractorById(contractorId: string): Promise<Contractor> {
+  async getContractorById(
+    userId: string,
+    contractorId: string,
+  ): Promise<Contractor> {
     const contractor = await this.contractorRepository.findOne({
       where: {
+        contractorCreatedBy: <any>{ userId: userId },
         contractorId,
       },
       relations: ['site', 'roleOfContractor'],
@@ -54,18 +56,23 @@ export class ContractorService {
     return contractor;
   }
 
-  async getAllContractors(): Promise<Contractor[]> {
+  async getAllContractors(userId: string): Promise<Contractor[]> {
     return this.contractorRepository.find({
+      where: {
+        contractorCreatedBy: <any>{ userId: userId },
+      },
       relations: ['site', 'roleOfContractor'],
     });
   }
 
   async updateContractor(
+    userId: string,
     contractorId: string,
     updateContractorDTO: UpdateContractorDTO,
   ): Promise<Contractor> {
     const contractor = await this.contractorRepository.findOne({
       where: {
+        contractorCreatedBy: <any>{ userId: userId },
         contractorId,
       },
     });
@@ -112,9 +119,10 @@ export class ContractorService {
     return contractor;
   }
 
-  async deleteContractor(contractorId: string): Promise<void> {
+  async deleteContractor(userId: string, contractorId: string): Promise<void> {
     const contractor = await this.contractorRepository.findOne({
       where: {
+        contractorCreatedBy: <any>{ userId: userId },
         contractorId,
       },
     });

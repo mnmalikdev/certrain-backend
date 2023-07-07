@@ -1,7 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { Role } from '../enums';
+import { Site } from 'src/sites/entities/site.entity';
+import { Department } from 'src/departments/entities/department.entity';
+import { Contractor } from 'src/contractors/entities/contractor.entity';
+import { Role as RoleEntity } from 'src/roles/entities/Role.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';
 @Entity()
 export class User {
   @ApiProperty({
@@ -55,4 +61,44 @@ export class User {
   })
   @Column()
   role: Role;
+
+  @OneToMany(() => Site, (site) => site.siteCreatedBy, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  userSites: Site[];
+
+  @OneToMany(() => Department, (dept) => dept.deptCreatedBy, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  userDepts: Department[];
+
+  @OneToMany(() => Contractor, (contractor) => contractor.contractorCreatedBy, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  userContractors: Contractor[];
+
+  @OneToMany(() => RoleEntity, (role) => role.roleCreatedBy, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  userRoles: Role[];
+
+  @OneToMany(() => Employee, (employee) => employee.employeeCreatedBy, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  userEmployees: Employee[];
+
+  @OneToMany(
+    () => AssetRegister,
+    (assetRegister) => assetRegister.assetCreatedBy,
+    {
+      onDelete: 'CASCADE',
+      cascade: true,
+    },
+  )
+  userAssets: Employee[];
 }
