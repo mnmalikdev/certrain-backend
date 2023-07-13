@@ -8,6 +8,7 @@ import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Role as RoleEntity } from 'src/roles/entities/Role.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';
+import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';
 @Entity()
 export class User {
   @ApiProperty({
@@ -101,4 +102,10 @@ export class User {
     },
   )
   userAssets: Employee[];
+
+  @OneToMany(() => RiskAssessment, (ra) => ra.riskAssessmentCreatedBy, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  userRiskAssessments: RiskAssessment[];
 }

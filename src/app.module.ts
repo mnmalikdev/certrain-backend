@@ -11,6 +11,7 @@ import { MailModule } from './mails/mailer.module';
 import { ContractorModule } from './contractors/contractors.module';
 import { EmployeesModule } from './employees/employees.module';
 import { AssetRegisterModule } from './assetRegister/assetRegister.module';
+import { RiskAssessmentModule } from './RiskAssesment/riskAssesment.module';
 @Module({
   imports: [
     SitesModule,
@@ -21,6 +22,7 @@ import { AssetRegisterModule } from './assetRegister/assetRegister.module';
     ContractorModule,
     EmployeesModule,
     AssetRegisterModule,
+    RiskAssessmentModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
