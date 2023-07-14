@@ -8,77 +8,61 @@ import {
 } from 'class-validator';
 
 export class CreateRiskAssessmentDTO {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'The ref number of a risk assessment',
-    example: 'ref123',
-  })
-  refNo: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'The ref number of a risk assessment',
+  //   example: 'ref123',
+  // })
+  // refNo: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'area on which risk assessment was performed.',
-    example: 'areaXYZ',
-  })
-  area: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'area on which risk assessment was performed.',
+  //   example: 'areaXYZ',
+  // })
+  // area: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'description of risk assessment.',
-    example: 'Risk assessment description',
-  })
-  description: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'description of risk assessment.',
+  //   example: 'Risk assessment description',
+  // })
+  // description: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'date of assessment.',
-    example: '2023-07-09',
-  })
-  assessmentDate: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'date of assessment.',
+  //   example: '2023-07-09',
+  // })
+  // assessmentDate: string;
 
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'risk rating.',
-    example: 3,
-  })
-  riskRating: number;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'review date.',
+  //   example: '2023-07-16',
+  // })
+  // reviewDate: string;
 
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'residual risk rating.',
-    example: 3,
-  })
-  residualRiskRating: number;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'status of risk assessment.',
+  //   example: 'completed',
+  // })
+  // status: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'review date.',
-    example: '2023-07-16',
-  })
-  reviewDate: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'status of risk assessment.',
-    example: 'completed',
-  })
-  status: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'who performed it?',
-    example: 'John Doe',
-  })
-  riskAssessmentOwner: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   description: 'who performed it?',
+  //   example: 'John Doe',
+  // })
+  // riskAssessmentOwner: string;
 
   @IsString()
   @IsNotEmpty()
@@ -98,12 +82,10 @@ export class CreateRiskAssessmentDTO {
 
   @IsString()
   @IsOptional()
-  @IsArray()
   @ApiProperty({
     description: 'people at risk',
-    example: ['employee1', 'employee2'],
   })
-  peopleAtRisk: string[];
+  peopleAtRisk: string;
 
   @IsString({ each: true })
   @IsOptional()
@@ -113,4 +95,20 @@ export class CreateRiskAssessmentDTO {
     type: [String],
   })
   controls: string[];
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'risk rating.',
+    example: 3,
+  })
+  riskRating: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'residual risk rating.',
+    example: 3,
+  })
+  residualRiskRating: number;
 }

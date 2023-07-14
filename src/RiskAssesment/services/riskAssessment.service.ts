@@ -19,17 +19,17 @@ export class RiskAssessmentService {
   ): Promise<RiskAssessment> {
     const newRiskAssessment = new RiskAssessment();
     newRiskAssessment.riskAssesmentId = uuidv4();
-    newRiskAssessment.refNo = createRiskAssessmentDTO.refNo;
-    newRiskAssessment.area = createRiskAssessmentDTO.area;
-    newRiskAssessment.description = createRiskAssessmentDTO.description;
-    newRiskAssessment.assessmentDate = createRiskAssessmentDTO.assessmentDate;
+    // newRiskAssessment.refNo = createRiskAssessmentDTO.refNo;
+    // newRiskAssessment.area = createRiskAssessmentDTO.area;
+    // newRiskAssessment.description = createRiskAssessmentDTO.description;
+    // newRiskAssessment.assessmentDate = createRiskAssessmentDTO.assessmentDate;
+    // newRiskAssessment.reviewDate = createRiskAssessmentDTO.reviewDate;
+    // newRiskAssessment.status = createRiskAssessmentDTO.status;
+    // newRiskAssessment.riskAssessmentOwner =
+    //   createRiskAssessmentDTO.riskAssessmentOwner;
     newRiskAssessment.residualRiskRating =
       createRiskAssessmentDTO.residualRiskRating;
     newRiskAssessment.riskRating = createRiskAssessmentDTO.riskRating;
-    newRiskAssessment.reviewDate = createRiskAssessmentDTO.reviewDate;
-    newRiskAssessment.status = createRiskAssessmentDTO.status;
-    newRiskAssessment.riskAssessmentOwner =
-      createRiskAssessmentDTO.riskAssessmentOwner;
     newRiskAssessment.hazard = createRiskAssessmentDTO.hazard;
     newRiskAssessment.risk = createRiskAssessmentDTO.risk;
     newRiskAssessment.peopleAtRisk = createRiskAssessmentDTO.peopleAtRisk;
@@ -80,18 +80,28 @@ export class RiskAssessmentService {
     }
 
     // Update the fields of the risk assessment if provided in the DTO
-    if (updateRiskAssessmentDTO.refNo) {
-      riskAssessment.refNo = updateRiskAssessmentDTO.refNo;
-    }
-    if (updateRiskAssessmentDTO.area) {
-      riskAssessment.area = updateRiskAssessmentDTO.area;
-    }
-    if (updateRiskAssessmentDTO.description) {
-      riskAssessment.description = updateRiskAssessmentDTO.description;
-    }
-    if (updateRiskAssessmentDTO.assessmentDate) {
-      riskAssessment.assessmentDate = updateRiskAssessmentDTO.assessmentDate;
-    }
+    // if (updateRiskAssessmentDTO.refNo) {
+    //   riskAssessment.refNo = updateRiskAssessmentDTO.refNo;
+    // }
+    // if (updateRiskAssessmentDTO.area) {
+    //   riskAssessment.area = updateRiskAssessmentDTO.area;
+    // }
+    // if (updateRiskAssessmentDTO.description) {
+    //   riskAssessment.description = updateRiskAssessmentDTO.description;
+    // }
+    // if (updateRiskAssessmentDTO.assessmentDate) {
+    //   riskAssessment.assessmentDate = updateRiskAssessmentDTO.assessmentDate;
+    // }
+    // if (updateRiskAssessmentDTO.reviewDate) {
+    //   riskAssessment.reviewDate = updateRiskAssessmentDTO.reviewDate;
+    // }
+    // if (updateRiskAssessmentDTO.status) {
+    //   riskAssessment.status = updateRiskAssessmentDTO.status;
+    // }
+    // if (updateRiskAssessmentDTO.riskAssessmentOwner) {
+    //   riskAssessment.riskAssessmentOwner =
+    //     updateRiskAssessmentDTO.riskAssessmentOwner;
+    // }
     if (updateRiskAssessmentDTO.residualRiskRating) {
       riskAssessment.residualRiskRating =
         updateRiskAssessmentDTO.residualRiskRating;
@@ -99,16 +109,7 @@ export class RiskAssessmentService {
     if (updateRiskAssessmentDTO.riskRating) {
       riskAssessment.riskRating = updateRiskAssessmentDTO.riskRating;
     }
-    if (updateRiskAssessmentDTO.reviewDate) {
-      riskAssessment.reviewDate = updateRiskAssessmentDTO.reviewDate;
-    }
-    if (updateRiskAssessmentDTO.status) {
-      riskAssessment.status = updateRiskAssessmentDTO.status;
-    }
-    if (updateRiskAssessmentDTO.riskAssessmentOwner) {
-      riskAssessment.riskAssessmentOwner =
-        updateRiskAssessmentDTO.riskAssessmentOwner;
-    }
+
     if (updateRiskAssessmentDTO.hazard) {
       riskAssessment.hazard = updateRiskAssessmentDTO.hazard;
     }
