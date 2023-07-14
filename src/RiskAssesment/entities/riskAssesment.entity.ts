@@ -8,7 +8,7 @@ export class RiskAssessment {
     description: 'Unique ID of the R.A record in DB',
   })
   @PrimaryColumn()
-  riskAssesmentId: string;
+  riskAssessmentId: string;
 
   // @ApiProperty({
   //   description: 'The ref number of a risk assessment',

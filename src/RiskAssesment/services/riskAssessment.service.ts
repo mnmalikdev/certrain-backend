@@ -18,7 +18,7 @@ export class RiskAssessmentService {
     createRiskAssessmentDTO: CreateRiskAssessmentDTO,
   ): Promise<RiskAssessment> {
     const newRiskAssessment = new RiskAssessment();
-    newRiskAssessment.riskAssesmentId = uuidv4();
+    newRiskAssessment.riskAssessmentId = uuidv4();
     // newRiskAssessment.refNo = createRiskAssessmentDTO.refNo;
     // newRiskAssessment.area = createRiskAssessmentDTO.area;
     // newRiskAssessment.description = createRiskAssessmentDTO.description;
@@ -47,7 +47,7 @@ export class RiskAssessmentService {
     const riskAssessment = await this.riskAssessmentRepository.findOne({
       where: {
         riskAssessmentCreatedBy: <any>{ userId: userId },
-        riskAssesmentId: riskAssessmentId,
+        riskAssessmentId: riskAssessmentId,
       },
     });
     if (!riskAssessment) {
@@ -72,7 +72,7 @@ export class RiskAssessmentService {
     const riskAssessment = await this.riskAssessmentRepository.findOne({
       where: {
         riskAssessmentCreatedBy: <any>{ userId: userId },
-        riskAssesmentId: riskAssessmentId,
+        riskAssessmentId: riskAssessmentId,
       },
     });
     if (!riskAssessment) {
@@ -134,7 +134,7 @@ export class RiskAssessmentService {
     const riskAssessment = await this.riskAssessmentRepository.findOne({
       where: {
         riskAssessmentCreatedBy: <any>{ userId: userId },
-        riskAssesmentId: riskAssessmentId,
+        riskAssessmentId: riskAssessmentId,
       },
     });
     if (!riskAssessment) {
