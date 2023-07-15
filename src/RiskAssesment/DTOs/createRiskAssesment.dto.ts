@@ -5,7 +5,10 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+import { Column } from 'typeorm';
 
 export class CreateRiskAssessmentDTO {
   // @IsString()
@@ -96,19 +99,51 @@ export class CreateRiskAssessmentDTO {
   })
   controls: string[];
 
-  @IsNumber()
   @IsNotEmpty()
+  @IsNumber()
   @ApiProperty({
-    description: 'risk rating.',
-    example: 3,
+    description: 'Risk rating.',
+    example: 4,
   })
   riskRating: number;
 
-  @IsNumber()
   @IsNotEmpty()
+  @IsNumber()
   @ApiProperty({
-    description: 'residual risk rating.',
+    description: 'Risk rating X.',
+    example: 0,
+  })
+  riskRatingX: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Risk rating Y.',
+    example: 0,
+  })
+  riskRatingY: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Residual risk rating object.',
     example: 3,
   })
   residualRiskRating: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Residual Risk rating X.',
+    example: 0,
+  })
+  residualRiskRatingX: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Residual Risk rating Y.',
+    example: 0,
+  })
+  residualRiskRatingY: number;
 }

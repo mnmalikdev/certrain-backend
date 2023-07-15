@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Column } from 'typeorm';
 
 export class UpdateRiskAssessmentDTO {
   // @IsString()
@@ -98,6 +99,22 @@ export class UpdateRiskAssessmentDTO {
   })
   residualRiskRating?: number;
 
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Residual Risk rating X.',
+    example: 0,
+  })
+  residualRiskRatingX?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Residual Risk rating Y.',
+    example: 0,
+  })
+  residualRiskRatingY?: number;
+
   @IsNumber()
   @IsOptional()
   @ApiProperty({
@@ -105,4 +122,20 @@ export class UpdateRiskAssessmentDTO {
     example: 3,
   })
   riskRating?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Risk rating X.',
+    example: 0,
+  })
+  riskRatingX?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Risk rating Y.',
+    example: 0,
+  })
+  riskRatingY?: number;
 }

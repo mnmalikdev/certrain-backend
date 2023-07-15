@@ -87,10 +87,34 @@ export class RiskAssessment {
   residualRiskRating: number;
 
   @ApiProperty({
+    description: 'residual risk rating x .',
+  })
+  @Column()
+  residualRiskRatingX: number;
+
+  @ApiProperty({
+    description: 'residual risk rating y .',
+  })
+  @Column()
+  residualRiskRatingY: number;
+
+  @ApiProperty({
     description: 'risk rating.',
   })
   @Column()
   riskRating: number;
+
+  @ApiProperty({
+    description: ' risk rating x .',
+  })
+  @Column()
+  riskRatingX: number;
+
+  @ApiProperty({
+    description: ' risk rating y .',
+  })
+  @Column()
+  riskRatingY: number;
 
   // risk assesment created By
 

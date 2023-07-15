@@ -19,6 +19,7 @@ export class RiskAssessmentService {
   ): Promise<RiskAssessment> {
     const newRiskAssessment = new RiskAssessment();
     newRiskAssessment.riskAssessmentId = uuidv4();
+    console.log(createRiskAssessmentDTO.riskRating);
     // newRiskAssessment.refNo = createRiskAssessmentDTO.refNo;
     // newRiskAssessment.area = createRiskAssessmentDTO.area;
     // newRiskAssessment.description = createRiskAssessmentDTO.description;
@@ -29,7 +30,13 @@ export class RiskAssessmentService {
     //   createRiskAssessmentDTO.riskAssessmentOwner;
     newRiskAssessment.residualRiskRating =
       createRiskAssessmentDTO.residualRiskRating;
+    newRiskAssessment.residualRiskRatingX =
+      createRiskAssessmentDTO.residualRiskRatingX;
+    newRiskAssessment.residualRiskRatingY =
+      createRiskAssessmentDTO.residualRiskRatingY;
     newRiskAssessment.riskRating = createRiskAssessmentDTO.riskRating;
+    newRiskAssessment.riskRatingX = createRiskAssessmentDTO.riskRatingX;
+    newRiskAssessment.riskRatingY = createRiskAssessmentDTO.riskRatingY; // Assign the object directly
     newRiskAssessment.hazard = createRiskAssessmentDTO.hazard;
     newRiskAssessment.risk = createRiskAssessmentDTO.risk;
     newRiskAssessment.peopleAtRisk = createRiskAssessmentDTO.peopleAtRisk;
@@ -106,15 +113,29 @@ export class RiskAssessmentService {
       riskAssessment.residualRiskRating =
         updateRiskAssessmentDTO.residualRiskRating;
     }
+    if (updateRiskAssessmentDTO.residualRiskRatingX) {
+      riskAssessment.residualRiskRatingX =
+        updateRiskAssessmentDTO.residualRiskRatingX;
+    }
+    if (updateRiskAssessmentDTO.residualRiskRatingY) {
+      riskAssessment.residualRiskRatingY =
+        updateRiskAssessmentDTO.residualRiskRatingY;
+    }
     if (updateRiskAssessmentDTO.riskRating) {
       riskAssessment.riskRating = updateRiskAssessmentDTO.riskRating;
+    }
+    if (updateRiskAssessmentDTO.riskRatingX) {
+      riskAssessment.riskRatingX = updateRiskAssessmentDTO.riskRatingX;
+    }
+    if (updateRiskAssessmentDTO.riskRatingY) {
+      riskAssessment.riskRatingY = updateRiskAssessmentDTO.riskRatingY;
+    }
+    if (updateRiskAssessmentDTO.risk) {
+      riskAssessment.risk = updateRiskAssessmentDTO.risk;
     }
 
     if (updateRiskAssessmentDTO.hazard) {
       riskAssessment.hazard = updateRiskAssessmentDTO.hazard;
-    }
-    if (updateRiskAssessmentDTO.risk) {
-      riskAssessment.risk = updateRiskAssessmentDTO.risk;
     }
     if (updateRiskAssessmentDTO.peopleAtRisk) {
       riskAssessment.peopleAtRisk = updateRiskAssessmentDTO.peopleAtRisk;
