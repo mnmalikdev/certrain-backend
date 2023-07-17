@@ -1,23 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { Type } from 'class-transformer';
-import { Column } from 'typeorm';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateRiskAssessmentDTO {
-  // @IsString()
-  // @IsNotEmpty()
-  // @ApiProperty({
-  //   description: 'The ref number of a risk assessment',
-  //   example: 'ref123',
-  // })
-  // refNo: string;
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'The ref number of a risk assessment',
+    example: 'ref123',
+  })
+  refNo: string;
 
   // @IsString()
   // @IsNotEmpty()
@@ -59,13 +50,12 @@ export class CreateRiskAssessmentDTO {
   // })
   // status: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  // @ApiProperty({
-  //   description: 'who performed it?',
-  //   example: 'John Doe',
-  // })
-  // riskAssessmentOwner: string;
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'who performed it?',
+  })
+  riskAssessmentOwnerId: string;
 
   @IsString()
   @IsNotEmpty()
@@ -108,6 +98,14 @@ export class CreateRiskAssessmentDTO {
   riskRating: number;
 
   @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'Risk rating color.',
+    example: '#fffff',
+  })
+  riskRatingColor: string;
+
+  @IsNotEmpty()
   @IsNumber()
   @ApiProperty({
     description: 'Risk rating X.',
@@ -130,6 +128,14 @@ export class CreateRiskAssessmentDTO {
     example: 3,
   })
   residualRiskRating: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'Residual Risk rating color.',
+    example: '#fffff',
+  })
+  residualRiskRatingColor: string;
 
   @IsNotEmpty()
   @IsNumber()

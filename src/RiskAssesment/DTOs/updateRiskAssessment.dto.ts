@@ -3,13 +3,13 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Column } from 'typeorm';
 
 export class UpdateRiskAssessmentDTO {
-  // @IsString()
-  // @IsOptional()
-  // @ApiProperty({
-  //   description: 'The ref number of a risk assessment',
-  //   example: 'ref123',
-  // })
-  // refNo?: string;
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    description: 'The ref number of a risk assessment',
+    example: 'ref123',
+  })
+  refNo?: string;
 
   // @IsString()
   // @IsOptional()
@@ -138,4 +138,27 @@ export class UpdateRiskAssessmentDTO {
     example: 0,
   })
   riskRatingY?: number;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    description: 'who performed it?',
+  })
+  riskAssessmentOwnerId: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Residual Risk rating color.',
+    example: '#fffff',
+  })
+  residualRiskRatingColor: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Risk rating color.',
+    example: '#fffff',
+  })
+  riskRatingColor: string;
 }

@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateEmployeeDTO {
   @IsString({ message: 'Please provide first Name as string' })
@@ -84,8 +90,9 @@ export class CreateEmployeeDTO {
   @IsOptional({
     message: 'requestedDocs',
   })
+  @IsArray()
   @ApiProperty()
-  requestedDocs: string;
+  requestedDocs: string[];
 
   @IsNotEmpty({
     message: 'timeframe in which they are required',

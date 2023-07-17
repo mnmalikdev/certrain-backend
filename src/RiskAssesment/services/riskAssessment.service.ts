@@ -20,14 +20,12 @@ export class RiskAssessmentService {
     const newRiskAssessment = new RiskAssessment();
     newRiskAssessment.riskAssessmentId = uuidv4();
     console.log(createRiskAssessmentDTO.riskRating);
-    // newRiskAssessment.refNo = createRiskAssessmentDTO.refNo;
+    newRiskAssessment.refNo = createRiskAssessmentDTO.refNo;
     // newRiskAssessment.area = createRiskAssessmentDTO.area;
     // newRiskAssessment.description = createRiskAssessmentDTO.description;
     // newRiskAssessment.assessmentDate = createRiskAssessmentDTO.assessmentDate;
     // newRiskAssessment.reviewDate = createRiskAssessmentDTO.reviewDate;
     // newRiskAssessment.status = createRiskAssessmentDTO.status;
-    // newRiskAssessment.riskAssessmentOwner =
-    //   createRiskAssessmentDTO.riskAssessmentOwner;
     newRiskAssessment.residualRiskRating =
       createRiskAssessmentDTO.residualRiskRating;
     newRiskAssessment.residualRiskRatingX =
@@ -43,6 +41,14 @@ export class RiskAssessmentService {
     newRiskAssessment.controls = createRiskAssessmentDTO.controls;
     newRiskAssessment.riskAssessmentCreatedBy = <any>{ userId: userId };
 
+    newRiskAssessment.riskAssessmentOwner = <any>{
+      employeeId: createRiskAssessmentDTO.riskAssessmentOwnerId,
+    };
+
+    newRiskAssessment.riskRatingColor = createRiskAssessmentDTO.riskRatingColor;
+    newRiskAssessment.residualRiskRatingColor =
+      createRiskAssessmentDTO.residualRiskRatingColor;
+
     await this.riskAssessmentRepository.save(newRiskAssessment);
     return newRiskAssessment;
   }
@@ -56,6 +62,7 @@ export class RiskAssessmentService {
         riskAssessmentCreatedBy: <any>{ userId: userId },
         riskAssessmentId: riskAssessmentId,
       },
+      relations: ['riskAssessmentOwner'],
     });
     if (!riskAssessment) {
       throw new NotFoundException('Risk Assessment not found');
@@ -68,6 +75,7 @@ export class RiskAssessmentService {
       where: {
         riskAssessmentCreatedBy: <any>{ userId: userId },
       },
+      relations: ['riskAssessmentOwner'],
     });
   }
 
@@ -142,6 +150,21 @@ export class RiskAssessmentService {
     }
     if (updateRiskAssessmentDTO.controls) {
       riskAssessment.controls = updateRiskAssessmentDTO.controls;
+    }
+
+    if (updateRiskAssessmentDTO.riskRatingColor) {
+      riskAssessment.riskRatingColor = updateRiskAssessmentDTO.riskRatingColor;
+    }
+
+    if (updateRiskAssessmentDTO.residualRiskRatingColor) {
+      riskAssessment.riskRatingColor =
+        updateRiskAssessmentDTO.residualRiskRatingColor;
+    }
+
+    if (updateRiskAssessmentDTO.riskAssessmentOwnerId) {
+      riskAssessment.riskAssessmentOwner = <any>{
+        employeeId: updateRiskAssessmentDTO.riskAssessmentOwnerId,
+      };
     }
 
     await this.riskAssessmentRepository.save(riskAssessment);

@@ -6,6 +6,7 @@ import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';
 import { User } from 'src/0auth2.0/entites/user.entity';
+import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';
 
 @Entity()
 export class Employee {
@@ -59,9 +60,11 @@ export class Employee {
   @Column()
   employmentStatus: string;
 
-  @ApiProperty()
-  @Column()
-  requestedDocs: string;
+  @ApiProperty({
+    description: ' requested documentation',
+  })
+  @Column('text', { array: true })
+  requestedDocs: string[];
 
   @ApiProperty()
   @Column()
@@ -99,4 +102,10 @@ export class Employee {
 
   @ManyToOne(() => User, (user) => user.userEmployees)
   employeeCreatedBy: User;
+
+  @OneToMany(
+    () => RiskAssessment,
+    (riskAssesment) => riskAssesment.riskAssessmentOwner,
+  )
+  riskAssessmentsOwned: RiskAssessment[];
 }

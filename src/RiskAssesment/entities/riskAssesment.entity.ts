@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/0auth2.0/entites/user.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
@@ -10,11 +11,11 @@ export class RiskAssessment {
   @PrimaryColumn()
   riskAssessmentId: string;
 
-  // @ApiProperty({
-  //   description: 'The ref number of a risk assessment',
-  // })
-  // @Column()
-  // refNo: string;
+  @ApiProperty({
+    description: 'The ref number of a risk assessment',
+  })
+  @Column()
+  refNo: string;
 
   // @ApiProperty({
   //   description: 'area on which risk assesment was performed.',
@@ -87,6 +88,12 @@ export class RiskAssessment {
   residualRiskRating: number;
 
   @ApiProperty({
+    description: 'residual risk rating string.',
+  })
+  @Column()
+  residualRiskRatingColor: string;
+
+  @ApiProperty({
     description: 'residual risk rating x .',
   })
   @Column()
@@ -105,6 +112,12 @@ export class RiskAssessment {
   riskRating: number;
 
   @ApiProperty({
+    description: ' risk rating Color .',
+  })
+  @Column()
+  riskRatingColor: string;
+
+  @ApiProperty({
     description: ' risk rating x .',
   })
   @Column()
@@ -120,4 +133,10 @@ export class RiskAssessment {
 
   @ManyToOne(() => User, (user) => user.userRiskAssessments)
   riskAssessmentCreatedBy: User;
+
+  @ManyToOne(() => Employee, (employee) => employee.riskAssessmentsOwned, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  riskAssessmentOwner: Employee;
 }
