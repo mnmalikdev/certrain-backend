@@ -1,6 +1,12 @@
 // createRole.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateRoleDTO {
   @IsString({ message: 'Please provide name of role as a string' })
@@ -42,4 +48,11 @@ export class CreateRoleDTO {
     description: 'Responsibilities of the role',
   })
   responsibilities: string;
+
+  @IsArray()
+  @IsOptional()
+  @ApiProperty({
+    description: 'create a risk assessment with role',
+  })
+  roleRiskAssessmentIds: string[];
 }

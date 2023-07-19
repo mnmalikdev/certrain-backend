@@ -31,7 +31,11 @@ export class SiteService {
     newSite.siteId = uuidv4();
     newSite.name = createSiteDTO.name;
     newSite.address = createSiteDTO.address;
+    newSite.riskAssessmentsOfSite = createSiteDTO?.siteRiskAssessmentIds?.map(
+      (riskAssesmentId) => <any>{ riskAssessmentId: riskAssesmentId },
+    );
     newSite.siteCreatedBy = <any>{ userId: userId };
+
     await this.siteRepository.save(newSite);
     return newSite;
   }
@@ -42,7 +46,7 @@ export class SiteService {
         siteId,
         siteCreatedBy: <any>{ userId: userId },
       },
-      relations: ['departmentOfSite'],
+      relations: ['departmentOfSite', 'riskAssessmentsOfSite'],
     });
     if (!site) {
       throw new NotFoundException('Site not found');
@@ -55,7 +59,7 @@ export class SiteService {
       where: {
         siteCreatedBy: <any>{ userId: userId },
       },
-      relations: ['departmentOfSite'],
+      relations: ['departmentOfSite', 'riskAssessmentsOfSite'],
     });
   }
 
@@ -87,6 +91,12 @@ export class SiteService {
 
     if (updateSiteDTO.address) {
       site.address = updateSiteDTO.address;
+    }
+
+    if (updateSiteDTO.siteRiskAssessmentIds) {
+      site.riskAssessmentsOfSite = updateSiteDTO?.siteRiskAssessmentIds?.map(
+        (riskAssesmentId) => <any>{ riskAssessmentId: riskAssesmentId },
+      );
     }
 
     await this.siteRepository.save(site);

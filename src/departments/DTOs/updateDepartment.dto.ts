@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDepartmentDTO {
   @IsOptional()
@@ -41,4 +41,11 @@ export class UpdateDepartmentDTO {
     example: '1234567890',
   })
   siteId?: string;
+
+  @IsArray()
+  @IsOptional()
+  @ApiProperty({
+    description: 'create a risk assessment site',
+  })
+  deptRiskAssessmentIds: string[];
 }

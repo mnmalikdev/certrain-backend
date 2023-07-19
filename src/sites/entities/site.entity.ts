@@ -4,9 +4,18 @@ import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Role } from 'src/roles/entities/Role.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { User } from 'src/0auth2.0/entites/user.entity';
+import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';
 
 @Entity()
 export class Site {
@@ -51,4 +60,16 @@ export class Site {
 
   @ManyToOne(() => User, (user) => user.userSites)
   siteCreatedBy: User;
+
+  @ManyToMany(
+    () => RiskAssessment,
+    (riskAssessment) => riskAssessment.assignedToSites,
+    {
+      onDelete: 'CASCADE',
+      cascade: true,
+      nullable: true,
+    },
+  )
+  @JoinTable()
+  riskAssessmentsOfSite: RiskAssessment[];
 }

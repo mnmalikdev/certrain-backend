@@ -38,6 +38,11 @@ export class RoleService {
     newRole.roleCreatedBy = <any>{
       userId: userId,
     };
+    newRole.riskAssessmentsOfRole = createRoleDTO?.roleRiskAssessmentIds?.map(
+      (riskAssessmentId) => {
+        return <any>{ riskAssessmentId: riskAssessmentId };
+      },
+    );
 
     await this.roleRepository.save(newRole);
     return newRole;
@@ -49,7 +54,7 @@ export class RoleService {
         roleCreatedBy: <any>{ userId: userId },
         roleId,
       },
-      relations: ['site', 'department'],
+      relations: ['site', 'department', 'riskAssessmentsOfRole'],
     });
     if (!role) {
       throw new NotFoundException('Role not found');
@@ -62,7 +67,7 @@ export class RoleService {
       where: {
         roleCreatedBy: <any>{ userId: userId },
       },
-      relations: ['site', 'department'],
+      relations: ['site', 'department', 'riskAssessmentsOfRole'],
     });
   }
 
@@ -99,6 +104,14 @@ export class RoleService {
     }
     if (updateRoleDTO.departmentId) {
       role.department = <any>{ departmentId: updateRoleDTO.departmentId };
+    }
+
+    if (updateRoleDTO.roleRiskAssessmentIds) {
+      role.riskAssessmentsOfRole = updateRoleDTO?.roleRiskAssessmentIds?.map(
+        (riskAssessmentId) => {
+          return <any>{ riskAssessmentId: riskAssessmentId };
+        },
+      );
     }
 
     await this.roleRepository.save(role);

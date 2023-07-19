@@ -113,6 +113,10 @@ export class Employee {
   @ManyToMany(
     () => RiskAssessment,
     (riskAssessment) => riskAssessment.riskAssessmentOwners,
+    {
+      onDelete: 'CASCADE',
+      cascade: true,
+    },
   )
   riskAssessmentsOwned: RiskAssessment[];
 }

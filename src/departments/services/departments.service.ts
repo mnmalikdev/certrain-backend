@@ -28,7 +28,10 @@ export class DepartmentService {
     newDepartment.extensionNumber = createDepartmentDTO.extensionNumber;
     newDepartment.site = <any>{ siteId: createDepartmentDTO?.siteId };
     newDepartment.deptCreatedBy = <any>{ userId: userId };
-
+    newDepartment.riskAssessmentsOfDepartment =
+      createDepartmentDTO.deptRiskAssessmentIds.map(
+        (riskAssessmentId) => <any>{ riskAssessmentId: riskAssessmentId },
+      );
     await this.departmentRepository.save(newDepartment);
     return newDepartment;
   }
@@ -42,7 +45,7 @@ export class DepartmentService {
         deptCreatedBy: <any>{ userId: userId },
         departmentId,
       },
-      relations: ['site'],
+      relations: ['site', 'riskAssessmentsOfDepartment'],
     });
     if (!department) {
       throw new NotFoundException('Department not found');
@@ -57,6 +60,7 @@ export class DepartmentService {
       },
       relations: {
         site: true,
+        riskAssessmentsOfDepartment: true,
       },
     });
   }
@@ -70,6 +74,13 @@ export class DepartmentService {
     Object.assign(department, updateDepartmentDTO);
     if (updateDepartmentDTO?.siteId) {
       department.site = <any>{ siteId: updateDepartmentDTO?.siteId };
+    }
+
+    if (updateDepartmentDTO.deptRiskAssessmentIds) {
+      department.riskAssessmentsOfDepartment =
+        updateDepartmentDTO.deptRiskAssessmentIds.map(
+          (riskAssessmentId) => <any>{ riskAssessmentId: riskAssessmentId },
+        );
     }
     await this.departmentRepository.save(department);
     return department;

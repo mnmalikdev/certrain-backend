@@ -3,7 +3,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
@@ -13,6 +14,7 @@ import { Site } from 'src/sites/entities/site.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { User } from 'src/0auth2.0/entites/user.entity';
+import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';
 
 @Entity()
 export class Role {
@@ -63,4 +65,16 @@ export class Role {
 
   @ManyToOne(() => User, (user) => user.userRoles)
   roleCreatedBy: User;
+
+  @ManyToMany(
+    () => RiskAssessment,
+    (riskAssessment) => riskAssessment.assignedToRoles,
+    {
+      onDelete: 'CASCADE',
+      cascade: true,
+      nullable: true,
+    },
+  )
+  @JoinTable()
+  riskAssessmentsOfRole: RiskAssessment[];
 }

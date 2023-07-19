@@ -3,6 +3,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
@@ -12,7 +14,7 @@ import { Site } from 'src/sites/entities/site.entity';
 import { Role } from 'src/roles/entities/Role.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { User } from 'src/0auth2.0/entites/user.entity';
-
+import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';
 @Entity()
 export class Department {
   @ApiProperty({
@@ -62,4 +64,16 @@ export class Department {
 
   @ManyToOne(() => User, (user) => user.userDepts)
   deptCreatedBy: User;
+
+  @ManyToMany(
+    () => RiskAssessment,
+    (riskAssessment) => riskAssessment.assignedToDepartments,
+    {
+      onDelete: 'CASCADE',
+      cascade: true,
+      nullable: true,
+    },
+  )
+  @JoinTable()
+  riskAssessmentsOfDepartment: RiskAssessment[];
 }
