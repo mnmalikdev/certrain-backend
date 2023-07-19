@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Column } from 'typeorm';
 
 export class UpdateRiskAssessmentDTO {
@@ -139,12 +145,12 @@ export class UpdateRiskAssessmentDTO {
   })
   riskRatingY?: number;
 
-  @IsString()
+  @IsArray()
   @IsOptional()
   @ApiProperty({
     description: 'who performed it?',
   })
-  riskAssessmentOwnerId: string;
+  riskAssessmentOwnerIds: string[];
 
   @IsOptional()
   @IsString()

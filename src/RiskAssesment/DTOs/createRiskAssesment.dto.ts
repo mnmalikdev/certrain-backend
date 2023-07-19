@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateRiskAssessmentDTO {
   @IsString()
@@ -50,12 +56,12 @@ export class CreateRiskAssessmentDTO {
   // })
   // status: string;
 
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'who performed it?',
+    description: 'people who performed it?',
   })
-  riskAssessmentOwnerId: string;
+  riskAssessmentOwnerIds: string[];
 
   @IsString()
   @IsNotEmpty()

@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { Site } from 'src/sites/entities/site.entity';
 import { Role } from 'src/roles/entities/Role.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
@@ -103,9 +110,9 @@ export class Employee {
   @ManyToOne(() => User, (user) => user.userEmployees)
   employeeCreatedBy: User;
 
-  @OneToMany(
+  @ManyToMany(
     () => RiskAssessment,
-    (riskAssesment) => riskAssesment.riskAssessmentOwner,
+    (riskAssessment) => riskAssessment.riskAssessmentOwners,
   )
   riskAssessmentsOwned: RiskAssessment[];
 }

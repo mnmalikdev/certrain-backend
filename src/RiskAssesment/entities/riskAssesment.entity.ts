@@ -1,7 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/0auth2.0/entites/user.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity()
 export class RiskAssessment {
@@ -134,9 +142,11 @@ export class RiskAssessment {
   @ManyToOne(() => User, (user) => user.userRiskAssessments)
   riskAssessmentCreatedBy: User;
 
-  @ManyToOne(() => Employee, (employee) => employee.riskAssessmentsOwned, {
+  // riskAssessment
+  @ManyToMany(() => Employee, (employee) => employee.riskAssessmentsOwned, {
     onDelete: 'CASCADE',
     cascade: true,
   })
-  riskAssessmentOwner: Employee;
+  @JoinTable()
+  riskAssessmentOwners: Employee[];
 }

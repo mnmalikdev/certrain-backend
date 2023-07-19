@@ -41,10 +41,10 @@ export class RiskAssessmentService {
     newRiskAssessment.controls = createRiskAssessmentDTO.controls;
     newRiskAssessment.riskAssessmentCreatedBy = <any>{ userId: userId };
 
-    newRiskAssessment.riskAssessmentOwner = <any>{
-      employeeId: createRiskAssessmentDTO.riskAssessmentOwnerId,
-    };
-
+    newRiskAssessment.riskAssessmentOwners =
+      createRiskAssessmentDTO.riskAssessmentOwnerIds.map(
+        (riskAssessmentOwnerId) => <any>{ employeeId: riskAssessmentOwnerId },
+      );
     newRiskAssessment.riskRatingColor = createRiskAssessmentDTO.riskRatingColor;
     newRiskAssessment.residualRiskRatingColor =
       createRiskAssessmentDTO.residualRiskRatingColor;
@@ -62,7 +62,7 @@ export class RiskAssessmentService {
         riskAssessmentCreatedBy: <any>{ userId: userId },
         riskAssessmentId: riskAssessmentId,
       },
-      relations: ['riskAssessmentOwner'],
+      relations: ['riskAssessmentOwners'],
     });
     if (!riskAssessment) {
       throw new NotFoundException('Risk Assessment not found');
@@ -75,7 +75,7 @@ export class RiskAssessmentService {
       where: {
         riskAssessmentCreatedBy: <any>{ userId: userId },
       },
-      relations: ['riskAssessmentOwner'],
+      relations: ['riskAssessmentOwners'],
     });
   }
 
@@ -161,11 +161,18 @@ export class RiskAssessmentService {
         updateRiskAssessmentDTO.residualRiskRatingColor;
     }
 
-    if (updateRiskAssessmentDTO.riskAssessmentOwnerId) {
-      riskAssessment.riskAssessmentOwner = <any>{
-        employeeId: updateRiskAssessmentDTO.riskAssessmentOwnerId,
-      };
+    if (updateRiskAssessmentDTO.riskAssessmentOwnerIds) {
+      riskAssessment.riskAssessmentOwners =
+        updateRiskAssessmentDTO.riskAssessmentOwnerIds.map(
+          (riskAssessmentOwnerId) => <any>{ employeeId: riskAssessmentOwnerId },
+        );
     }
+
+    // if (updateRiskAssessmentDTO.riskAssessmentOwnerId) {
+    //   riskAssessment.riskAssessmentOwner = <any>{
+    //     employeeId: updateRiskAssessmentDTO.riskAssessmentOwnerId,
+    //   };
+    // }
 
     await this.riskAssessmentRepository.save(riskAssessment);
     return riskAssessment;
