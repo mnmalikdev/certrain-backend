@@ -13,7 +13,7 @@ exports.Employee = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const site_entity_1 = require("../../sites/entities/site.entity");
-const Role_entity_1 = require("../../roles/entities/Role.entity");
+const role_entity_1 = require("../../roles/entities/role.entity");
 const contractor_entity_1 = require("../../contractors/entities/contractor.entity");
 const department_entity_1 = require("../../departments/entities/department.entity");
 const assetRegister_entity_1 = require("../../assetRegister/entities/assetRegister.entity");
@@ -99,11 +99,11 @@ __decorate([
     __metadata("design:type", site_entity_1.Site)
 ], Employee.prototype, "worksAtSite", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Role_entity_1.Role, (role) => role.employeeRole, {
+    (0, typeorm_1.ManyToOne)(() => role_entity_1.Role, (role) => role.employeeRole, {
         cascade: true,
         onDelete: 'SET NULL',
     }),
-    __metadata("design:type", Role_entity_1.Role)
+    __metadata("design:type", role_entity_1.Role)
 ], Employee.prototype, "role", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => contractor_entity_1.Contractor, (contractor) => contractor.employeesEmployed, {

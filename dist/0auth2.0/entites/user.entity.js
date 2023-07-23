@@ -16,7 +16,7 @@ const enums_1 = require("../enums");
 const site_entity_1 = require("../../sites/entities/site.entity");
 const department_entity_1 = require("../../departments/entities/department.entity");
 const contractor_entity_1 = require("../../contractors/entities/contractor.entity");
-const Role_entity_1 = require("../../roles/entities/Role.entity");
+const role_entity_1 = require("../../roles/entities/role.entity");
 const employee_entity_1 = require("../../employees/entities/employee.entity");
 const assetRegister_entity_1 = require("../../assetRegister/entities/assetRegister.entity");
 const riskAssesment_entity_1 = require("../../RiskAssesment/entities/riskAssesment.entity");
@@ -104,7 +104,7 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "userContractors", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Role_entity_1.Role, (role) => role.roleCreatedBy, {
+    (0, typeorm_1.OneToMany)(() => role_entity_1.Role, (role) => role.roleCreatedBy, {
         onDelete: 'CASCADE',
         cascade: true,
     }),

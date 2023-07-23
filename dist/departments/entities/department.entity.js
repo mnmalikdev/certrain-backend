@@ -13,7 +13,7 @@ exports.Department = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const site_entity_1 = require("../../sites/entities/site.entity");
-const Role_entity_1 = require("../../roles/entities/Role.entity");
+const role_entity_1 = require("../../roles/entities/role.entity");
 const employee_entity_1 = require("../../employees/entities/employee.entity");
 const user_entity_1 = require("../../0auth2.0/entites/user.entity");
 const riskAssesment_entity_1 = require("../../RiskAssesment/entities/riskAssesment.entity");
@@ -62,10 +62,10 @@ __decorate([
     __metadata("design:type", site_entity_1.Site)
 ], Department.prototype, "site", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Role_entity_1.Role, (role) => role.site, {
+    (0, typeorm_1.OneToMany)(() => role_entity_1.Role, (role) => role.site, {
         nullable: true,
     }),
-    __metadata("design:type", Role_entity_1.Role)
+    __metadata("design:type", role_entity_1.Role)
 ], Department.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => employee_entity_1.Employee, (employee) => employee.belongToDepartment),

@@ -1,7 +1,7 @@
 import { User } from 'src/0auth2.0/entites/user.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
-import { Role } from 'src/roles/entities/Role.entity';
+import { Role } from 'src/roles/entities/role.entity';
 export declare class RiskAssessment {
     riskAssessmentId: string;
     refNo: string;

@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("../../0auth2.0/entites/user.entity");
 const department_entity_1 = require("../../departments/entities/department.entity");
 const employee_entity_1 = require("../../employees/entities/employee.entity");
-const Role_entity_1 = require("../../roles/entities/Role.entity");
+const role_entity_1 = require("../../roles/entities/role.entity");
 const site_entity_1 = require("../../sites/entities/site.entity");
 const typeorm_1 = require("typeorm");
 let RiskAssessment = exports.RiskAssessment = class RiskAssessment {
@@ -141,7 +141,7 @@ __decorate([
     __metadata("design:type", Array)
 ], RiskAssessment.prototype, "assignedToDepartments", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => Role_entity_1.Role, (role) => role.riskAssessmentsOfRole, {
+    (0, typeorm_1.ManyToMany)(() => role_entity_1.Role, (role) => role.riskAssessmentsOfRole, {
         nullable: true,
     }),
     __metadata("design:type", Array)

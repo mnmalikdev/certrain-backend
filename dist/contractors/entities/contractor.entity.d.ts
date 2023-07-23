@@ -1,6 +1,6 @@
 import { User } from 'src/0auth2.0/entites/user.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
-import { Role } from 'src/roles/entities/Role.entity';
+import { Role } from 'src/roles/entities/role.entity';
 import { Site } from 'src/sites/entities/site.entity';
 export declare class Contractor {
     contractorId: string;

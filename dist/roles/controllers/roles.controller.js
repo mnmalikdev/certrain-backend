@@ -16,7 +16,7 @@ exports.RolesController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const role_service_1 = require("../services/role.service");
-const Role_entity_1 = require("../entities/Role.entity");
+const role_entity_1 = require("../entities/role.entity");
 const createRole_dto_1 = require("../DTOs/createRole.dto");
 const updateRole_dto_1 = require("../DTOs/updateRole.dto");
 const passport_1 = require("@nestjs/passport");
@@ -74,7 +74,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.CREATED,
         description: 'Creates a new role',
-        type: Role_entity_1.Role,
+        type: role_entity_1.Role,
     }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
@@ -87,7 +87,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.OK,
         description: 'Retrieves a role by ID',
-        type: Role_entity_1.Role,
+        type: role_entity_1.Role,
     }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('roleId')),
@@ -100,7 +100,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.OK,
         description: 'Retrieves all roles',
-        type: [Role_entity_1.Role],
+        type: [role_entity_1.Role],
     }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -124,7 +124,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.OK,
         description: 'update existing role',
-        type: Role_entity_1.Role,
+        type: role_entity_1.Role,
     }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('roleId')),

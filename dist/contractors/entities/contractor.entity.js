@@ -13,7 +13,7 @@ exports.Contractor = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("../../0auth2.0/entites/user.entity");
 const employee_entity_1 = require("../../employees/entities/employee.entity");
-const Role_entity_1 = require("../../roles/entities/Role.entity");
+const role_entity_1 = require("../../roles/entities/role.entity");
 const site_entity_1 = require("../../sites/entities/site.entity");
 const typeorm_1 = require("typeorm");
 let Contractor = exports.Contractor = class Contractor {
@@ -109,11 +109,11 @@ __decorate([
     __metadata("design:type", Array)
 ], Contractor.prototype, "employeesEmployed", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Role_entity_1.Role, (role) => role.contractorHasRole, {
+    (0, typeorm_1.ManyToOne)(() => role_entity_1.Role, (role) => role.contractorHasRole, {
         onDelete: 'SET NULL',
         cascade: true,
     }),
-    __metadata("design:type", Role_entity_1.Role)
+    __metadata("design:type", role_entity_1.Role)
 ], Contractor.prototype, "roleOfContractor", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.userContractors),

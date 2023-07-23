@@ -15,7 +15,7 @@ const assetRegister_entity_1 = require("../../assetRegister/entities/assetRegist
 const contractor_entity_1 = require("../../contractors/entities/contractor.entity");
 const department_entity_1 = require("../../departments/entities/department.entity");
 const employee_entity_1 = require("../../employees/entities/employee.entity");
-const Role_entity_1 = require("../../roles/entities/Role.entity");
+const role_entity_1 = require("../../roles/entities/role.entity");
 const typeorm_1 = require("typeorm");
 const user_entity_1 = require("../../0auth2.0/entites/user.entity");
 const riskAssesment_entity_1 = require("../../RiskAssesment/entities/riskAssesment.entity");
@@ -53,8 +53,8 @@ __decorate([
     __metadata("design:type", contractor_entity_1.Contractor)
 ], Site.prototype, "contractors", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Role_entity_1.Role, (role) => role.site),
-    __metadata("design:type", Role_entity_1.Role)
+    (0, typeorm_1.OneToMany)(() => role_entity_1.Role, (role) => role.site),
+    __metadata("design:type", role_entity_1.Role)
 ], Site.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => employee_entity_1.Employee, (employee) => employee.worksAtSite),
