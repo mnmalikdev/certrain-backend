@@ -49,6 +49,8 @@ export class RiskAssessmentService {
     newRiskAssessment.residualRiskRatingColor =
       createRiskAssessmentDTO.residualRiskRatingColor;
 
+    // if needed to assign sites, departments and roles.
+
     await this.riskAssessmentRepository.save(newRiskAssessment);
     return newRiskAssessment;
   }

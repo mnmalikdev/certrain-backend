@@ -45,14 +45,14 @@ export class Role {
 
   @ManyToOne(() => Site, (site) => site.roles, {
     cascade: true,
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     nullable: true, // Make site property optional
   })
   site: Site;
 
   @ManyToOne(() => Department, (department) => department.roles, {
     cascade: true,
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     nullable: true, // Make department property optional
   })
   department?: Department;
@@ -70,7 +70,7 @@ export class Role {
     () => RiskAssessment,
     (riskAssessment) => riskAssessment.assignedToRoles,
     {
-      onDelete: 'CASCADE',
+      onDelete: 'SET NULL',
       cascade: true,
       nullable: true,
     },

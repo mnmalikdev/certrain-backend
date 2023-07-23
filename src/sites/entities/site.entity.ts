@@ -54,7 +54,7 @@ export class Site {
   @OneToMany(
     () => AssetRegister,
     (assetRegister) => assetRegister.assetsOfSite,
-    { onDelete: 'CASCADE', cascade: true },
+    { onDelete: 'SET NULL', cascade: true },
   )
   assets: AssetRegister[];
 
@@ -65,8 +65,6 @@ export class Site {
     () => RiskAssessment,
     (riskAssessment) => riskAssessment.assignedToSites,
     {
-      onDelete: 'CASCADE',
-      cascade: true,
       nullable: true,
     },
   )

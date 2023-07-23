@@ -79,24 +79,24 @@ export class Employee {
 
   @ManyToOne(() => Site, (site) => site.employees, {
     cascade: true,
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
   })
   worksAtSite: Site;
 
   @ManyToOne(() => Role, (role) => role.employeeRole, {
     cascade: true,
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
   })
   role: Role;
 
   @ManyToOne(() => Contractor, (contractor) => contractor.employeesEmployed, {
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     cascade: true,
   })
   employedBy: Contractor;
 
   @ManyToOne(() => Department, (department) => department.employees, {
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     cascade: true,
   })
   belongToDepartment: Department;
@@ -114,7 +114,7 @@ export class Employee {
     () => RiskAssessment,
     (riskAssessment) => riskAssessment.riskAssessmentOwners,
     {
-      onDelete: 'CASCADE',
+      onDelete: 'SET NULL',
       cascade: true,
     },
   )

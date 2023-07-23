@@ -152,6 +152,8 @@ export class RiskAssessment {
 
   @ManyToMany(() => Site, (site) => site.riskAssessmentsOfSite, {
     nullable: true,
+    onDelete: 'SET NULL',
+    cascade: true,
   })
   assignedToSites: RiskAssessment[];
 

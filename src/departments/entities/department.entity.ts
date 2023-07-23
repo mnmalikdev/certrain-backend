@@ -49,7 +49,7 @@ export class Department {
   extensionNumber: string;
 
   @ManyToOne(() => Site, (site) => site.departmentOfSite, {
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     cascade: true,
   })
   site: Site;
@@ -69,7 +69,7 @@ export class Department {
     () => RiskAssessment,
     (riskAssessment) => riskAssessment.assignedToDepartments,
     {
-      onDelete: 'CASCADE',
+      onDelete: 'SET NULL',
       cascade: true,
       nullable: true,
     },
