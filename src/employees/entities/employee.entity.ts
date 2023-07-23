@@ -8,7 +8,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { Site } from 'src/sites/entities/site.entity';
-import { Role } from 'src/roles/entities/Role.entity';
+import { Role } from 'src/roles/entities/role.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';

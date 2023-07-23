@@ -11,7 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Site } from 'src/sites/entities/site.entity';
-import { Role } from 'src/roles/entities/Role.entity';
+import { Role } from 'src/roles/entities/role.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { User } from 'src/0auth2.0/entites/user.entity';
 import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';

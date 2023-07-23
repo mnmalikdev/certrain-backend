@@ -5,7 +5,7 @@ import { Role } from '../enums';
 import { Site } from 'src/sites/entities/site.entity';
 import { Department } from 'src/departments/entities/department.entity';
 import { Contractor } from 'src/contractors/entities/contractor.entity';
-import { Role as RoleEntity } from 'src/roles/entities/Role.entity';
+import { Role as RoleEntity } from 'src/roles/entities/role.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { AssetRegister } from 'src/assetRegister/entities/assetRegister.entity';
 import { RiskAssessment } from 'src/RiskAssesment/entities/riskAssesment.entity';

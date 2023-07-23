@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { RoleService } from '../services/role.service';
-import { Role } from '../entities/Role.entity';
+import { Role } from '../entities/role.entity';
 import { CreateRoleDTO } from '../DTOs/createRole.dto';
 import { UpdateRoleDTO } from '../DTOs/updateRole.dto';
 import { AuthGuard } from '@nestjs/passport';
