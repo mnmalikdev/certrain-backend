@@ -1,0 +1,7 @@
+# render.yaml
+
+# Build configuration
+buildCommand: npm run build
+
+# Runtime configuration
+runCommand: node dist/main
