@@ -33,6 +33,7 @@ import { RiskAssessmentModule } from './RiskAssesment/riskAssesment.module';
       database: process.env.DB_DATABASE,
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
+      ssl: true,
     }),
   ],
   providers: [AppService],
