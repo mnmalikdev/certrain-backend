@@ -109,11 +109,11 @@ export class AuthService {
     newUser.password = hashedPassword;
 
     // todo: MAKE AN EMAIL SERVICE .
-    // await this.customMailService.sendUserConfirmation(
-    //   newUser.userId,
-    //   newUser.email,
-    //   newUser.userName,
-    // );
+    await this.customMailService.sendUserConfirmation(
+      newUser.userId,
+      newUser.email,
+      newUser.userName,
+    );
 
     await this.userRepository.save(newUser);
 
@@ -269,10 +269,10 @@ export class AuthService {
         'No such user with this email exists in our system ! ',
       );
     }
-    // await this.customMailService.sendPasswordResetLink(
-    //   sendLinkDto.email,
-    //   isUserRegistered?.userName,
-    // );
+    await this.customMailService.sendPasswordResetLink(
+      sendLinkDto.email,
+      isUserRegistered?.userName,
+    );
     return {
       status: 'sucess',
       message: "link sent to user's email",

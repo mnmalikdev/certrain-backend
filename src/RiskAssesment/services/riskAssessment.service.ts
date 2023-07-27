@@ -42,7 +42,7 @@ export class RiskAssessmentService {
     newRiskAssessment.riskAssessmentCreatedBy = <any>{ userId: userId };
 
     newRiskAssessment.riskAssessmentOwners =
-      createRiskAssessmentDTO.riskAssessmentOwnerIds.map(
+      createRiskAssessmentDTO?.riskAssessmentOwnerIds?.map(
         (riskAssessmentOwnerId) => <any>{ employeeId: riskAssessmentOwnerId },
       );
     newRiskAssessment.riskRatingColor = createRiskAssessmentDTO.riskRatingColor;
@@ -165,7 +165,7 @@ export class RiskAssessmentService {
 
     if (updateRiskAssessmentDTO.riskAssessmentOwnerIds) {
       riskAssessment.riskAssessmentOwners =
-        updateRiskAssessmentDTO.riskAssessmentOwnerIds.map(
+        updateRiskAssessmentDTO?.riskAssessmentOwnerIds?.map(
           (riskAssessmentOwnerId) => <any>{ employeeId: riskAssessmentOwnerId },
         );
     }

@@ -25,7 +25,7 @@ export class DepartmentService {
     newDepartment.site = <any>{ siteId: createDepartmentDTO?.siteId };
     newDepartment.deptCreatedBy = <any>{ userId: userId };
     newDepartment.riskAssessmentsOfDepartment =
-      createDepartmentDTO.deptRiskAssessmentIds.map(
+      createDepartmentDTO?.deptRiskAssessmentIds?.map(
         (riskAssessmentId) => <any>{ riskAssessmentId: riskAssessmentId },
       );
     await this.departmentRepository.save(newDepartment);
@@ -74,7 +74,7 @@ export class DepartmentService {
 
     if (updateDepartmentDTO.deptRiskAssessmentIds) {
       department.riskAssessmentsOfDepartment =
-        updateDepartmentDTO.deptRiskAssessmentIds.map(
+        updateDepartmentDTO?.deptRiskAssessmentIds?.map(
           (riskAssessmentId) => <any>{ riskAssessmentId: riskAssessmentId },
         );
     }
