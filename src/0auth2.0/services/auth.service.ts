@@ -18,7 +18,6 @@ import { User } from '../entites/user.entity';
 import { Role } from '../enums';
 import { CustomMailService } from 'src/mails/mailer.service';
 import { SendPasswordResetLinkDTO } from '../DTOs/sendPasswordResetLink.dto';
-import { ResetPasswordDTO } from '../DTOs/resetPassword.dto';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +35,7 @@ export class AuthService {
   }
 
   async parseUser(user: User) {
-    const { password, hashedRt, ...parsedUser } = user;
+    const { ...parsedUser } = user;
     return parsedUser;
   }
 

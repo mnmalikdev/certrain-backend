@@ -3,7 +3,6 @@ import { Type } from 'class-transformer';
 import {
   IsNotEmpty,
   IsString,
-  IsBoolean,
   IsOptional,
   IsBooleanString,
 } from 'class-validator';

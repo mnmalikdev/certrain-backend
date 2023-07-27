@@ -1,11 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsString,
-  IsOptional,
-  IsBoolean,
-  IsBooleanString,
-  IsNotEmpty,
-} from 'class-validator';
+import { IsString, IsOptional, IsBooleanString } from 'class-validator';
 import { Express } from 'express';
 
 export class UpdateAssetRegisterDto {

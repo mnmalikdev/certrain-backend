@@ -10,7 +10,6 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 

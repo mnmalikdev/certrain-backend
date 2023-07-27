@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
-import { Column } from 'typeorm';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateRiskAssessmentDTO {
   @IsString()
